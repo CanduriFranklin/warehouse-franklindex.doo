@@ -84,8 +84,13 @@ application-local.properties
 *.p12
 *.jks
 .env
-.env.local
+.env.*
+!.env.example
 secrets/
+application-local.yml
+application-local.properties
+*-local.yml
+*-local.properties
 
 ### Docker ###
 docker-compose.override.yml

@@ -1,5 +1,13 @@
 # Development Profile Configuration
+# This file contains ONLY non-sensitive development settings
+# Sensitive values (passwords, secrets) must be in environment variables
+
 spring:
+  # Development Database (use environment variables for credentials)
+  datasource:
+    url: jdbc:postgresql://localhost:5432/warehouse_db_dev
+  
+  # Show SQL for debugging
   jpa:
     show-sql: true
     properties:
@@ -12,14 +20,25 @@ spring:
     livereload:
       enabled: true
 
+# Development logging (more verbose)
 logging:
   level:
-    root: DEBUG
+    root: INFO
     br.com.dio: DEBUG
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-warehouse:
-  security:
-    jwt:
-      secret: dev-secret-key-not-for-production-use-only
+# Development users (passwords from environment variables)
+dev:
+  users:
+    admin:
+      username: ${DEV_ADMIN_USERNAME:admin}
+      password: ${DEV_ADMIN_PASSWORD}  # MUST be set in environment or .env file
+    manager:
+      username: ${DEV_MANAGER_USERNAME:manager}
+      password: ${DEV_MANAGER_PASSWORD}  # MUST be set in environment or .env file
+    sales:
+      username: ${DEV_SALES_USERNAME:sales}
+      password: ${DEV_SALES_PASSWORD}  # MUST be set in environment or .env file
