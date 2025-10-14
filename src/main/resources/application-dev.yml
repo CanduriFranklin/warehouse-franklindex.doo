@@ -27,8 +27,14 @@ logging:
     br.com.dio: DEBUG
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
+    org.springframework.amqp: DEBUG
+    org.springframework.rabbit: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# RabbitMQ configuration (can be disabled for local dev)
+rabbitmq:
+  enabled: ${RABBITMQ_ENABLED:true}
 
 # Development users (passwords from environment variables)
 dev:
