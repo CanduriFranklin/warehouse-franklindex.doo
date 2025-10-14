@@ -1,0 +1,18 @@
+# Test Profile Configuration
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:16:///testdb
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  
+  rabbitmq:
+    host: localhost
+    port: 5672
+
+logging:
+  level:
+    root: INFO
+    br.com.dio: DEBUG
