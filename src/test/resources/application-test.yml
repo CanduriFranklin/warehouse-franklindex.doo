@@ -1,0 +1,32 @@
+# Test Configuration
+# This file contains test-specific configuration
+# Credentials here are for TESTING ONLY
+
+# Test users (different from production)
+dev:
+  users:
+    admin:
+      username: test_admin
+      password: TestAdminPass123!
+    manager:
+      username: test_manager
+      password: TestManagerPass123!
+    sales:
+      username: test_sales
+      password: TestSalesPass123!
+
+# JWT Test Configuration
+warehouse:
+  security:
+    jwt:
+      secret: dGVzdC1zZWNyZXQtZm9yLXVuaXQtdGVzdHMtb25seS1ub3QtZm9yLXByb2R1Y3Rpb24=
+      expiration: 3600000  # 1 hour for tests
+      refresh-expiration: 7200000  # 2 hours for tests
+
+# Disable database for unit tests
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
