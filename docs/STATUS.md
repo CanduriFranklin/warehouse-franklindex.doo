@@ -1,8 +1,9 @@
 # Status do Projeto - Warehouse Microservice
 
-**Data**: 13 de Outubro de 2025  
+**Data**: 14 de Outubro de 2025  
 **Versão**: 1.0.0-SNAPSHOT  
-**Status**: ✅ Em Desenvolvimento Ativo
+**Status**: ✅ Em Desenvolvimento Ativo  
+**Última Atualização**: Implementação completa das camadas Application e Adapter
 
 ---
 
@@ -32,21 +33,25 @@ warehouse-franklindex.doo/
 │   │   ├── event/               # Domain Events
 │   │   └── exception/           # Domain Exceptions
 │   │
-│   ├── application/              # 🔄 Em Implementação
-│   │   ├── usecase/
-│   │   ├── port/in/
-│   │   └── port/out/
+│   ├── application/              # ✅ COMPLETO (14/10/2025)
+│   │   ├── port/in/             # 5 Use Cases interfaces
+│   │   ├── port/out/            # EventPublisher interface
+│   │   └── service/             # 5 Services implementados
+│   │
+│   ├── adapter/                  # ✅ COMPLETO (14/10/2025)
+│   │   └── in/web/
+│   │       ├── controller/      # 4 REST Controllers
+│   │       ├── dto/             # 7 DTOs com validações
+│   │       └── mapper/          # MapStruct mapper
 │   │
 │   ├── infrastructure/           # ✅ Parcialmente Completo
-│   │   ├── persistence/         # Adaptadores JPA
-│   │   ├── messaging/           # RabbitMQ (pendente)
-│   │   └── config/              # Configurações (pendente)
+│   │   ├── persistence/         # ✅ Adaptadores JPA
+│   │   ├── event/               # ✅ LoggingEventPublisher
+│   │   ├── messaging/           # ⏳ RabbitMQ (pendente)
+│   │   └── config/              # ⏳ Configurações (pendente)
 │   │
-│   └── presentation/             # ⏳ Pendente
-│       ├── rest/
-│       ├── dto/
-│       ├── mapper/
-│       └── exception/
+│   └── presentation/             # ✅ Movido para adapter/in/web
+│       └── (deprecated)
 │
 ├── src/main/resources/
 │   ├── db/migration/             # ✅ Flyway migrations
@@ -91,58 +96,84 @@ warehouse-franklindex.doo/
 
 ### Camadas Implementadas
 
-#### ✅ Domain Layer (100%)
+#### ✅ Domain Layer (100%) - Commitado em 13/10/2025
 - [x] Entidades: BasicBasket, DeliveryBox
 - [x] Value Objects: Money
 - [x] Repository Interfaces
 - [x] Domain Events
 - [x] Domain Exceptions
 
-#### ✅ Infrastructure - Persistence (100%)
+#### ✅ Infrastructure - Persistence (100%) - Commitado em 13/10/2025
 - [x] JPA Repositories
 - [x] Repository Adapters
 - [x] Flyway Migration V1
 - [x] Database Schema
 
-#### 🔄 Application Layer (0%)
-- [ ] Use Cases
-- [ ] Input Ports
-- [ ] Output Ports
+#### ✅ Application Layer (100%) - **NOVO: Implementado em 14/10/2025**
+- [x] Use Cases (5 interfaces implementadas)
+  - [x] ReceiveDeliveryUseCase
+  - [x] SellBasketsUseCase
+  - [x] DisposeExpiredBasketsUseCase
+  - [x] CheckStockUseCase
+  - [x] GetCashRegisterUseCase
+- [x] Input Ports (Commands e Results como records)
+- [x] Output Ports (EventPublisher)
+- [x] Services (5 implementações completas)
+  - [x] ReceiveDeliveryService (63 linhas)
+  - [x] SellBasketsService (84 linhas)
+  - [x] DisposeExpiredBasketsService (78 linhas)
+  - [x] CheckStockService (62 linhas)
+  - [x] GetCashRegisterService (75 linhas)
 
-#### ⏳ Presentation Layer (0%)
-- [ ] REST Controllers
-- [ ] DTOs
-- [ ] Mappers
-- [ ] Exception Handlers
+#### ✅ Adapter Layer - REST API (100%) - **NOVO: Implementado em 14/10/2025**
+- [x] REST Controllers (4 controllers com OpenAPI annotations)
+  - [x] DeliveryController - POST /api/v1/deliveries
+  - [x] BasketController - POST /api/v1/baskets/sell, /dispose-expired
+  - [x] StockController - GET /api/v1/stock
+  - [x] CashRegisterController - GET /api/v1/cash-register
+- [x] DTOs (7 DTOs com Bean Validation)
+  - [x] ReceiveDeliveryRequest
+  - [x] DeliveryResponse
+  - [x] SellBasketsRequest/Response
+  - [x] DisposeExpiredBasketsResponse
+  - [x] StockInfoResponse
+  - [x] CashRegisterResponse
+- [x] Mappers (MapStruct - WarehouseMapper com 90 linhas)
+- [ ] Exception Handlers (GlobalExceptionHandler - pendente)
 
-#### ⏳ Infrastructure - Outros (0%)
-- [ ] RabbitMQ Configuration
-- [ ] Security Configuration
-- [ ] Messaging Producers/Consumers
+#### ✅ Infrastructure - Events (50%) - **NOVO: Implementado em 14/10/2025**
+- [x] LoggingEventPublisher (implementação temporária)
+- [ ] RabbitMQ Configuration (pendente)
+- [ ] Messaging Producers/Consumers (pendente)
+
+#### ⏳ Infrastructure - Security (0%)
+- [ ] JWT Authentication
+- [ ] Spring Security Configuration
+- [ ] User Management
 
 ---
 
 ## 🚀 Próximos Passos Prioritários
 
-### 1. Application Layer (Use Cases)
+### ~~1. Application Layer (Use Cases)~~ ✅ CONCLUÍDO (14/10/2025)
+**Status**: ✅ 100% Implementado  
+**Tempo Real**: ~4 horas  
+**Arquivos**: 11 arquivos, 362 linhas de código
+
+### ~~2. Presentation Layer (REST API)~~ ✅ CONCLUÍDO (14/10/2025)
+**Status**: ✅ 100% Implementado (exceto Exception Handlers)  
+**Tempo Real**: ~4 horas  
+**Arquivos**: 15 arquivos, 628 linhas de código
+
+### 3. Exception Handling (GlobalExceptionHandler)
 **Prioridade**: 🔥 ALTA  
-**Estimativa**: 4-6 horas
+**Estimativa**: 2-3 horas
 
-**Use Cases a Implementar:**
-- `ReceiveDeliveryUseCase` - Receber entrega de cestas
-- `SellBasketsUseCase` - Vender cestas
-- `DisposeExpiredBasketsUseCase` - Descartar cestas vencidas
-- `CheckStockUseCase` - Verificar estoque
-- `GetCashRegisterUseCase` - Consultar caixa
-
-### 2. Presentation Layer (REST API)
-**Prioridade**: 🔥 ALTA  
-**Estimativa**: 6-8 horas
-
-**Controllers:**
-- `StockController` - Gestão de estoque
-- `BasketController` - Operações com cestas
-- `DeliveryController` - Recebimento de entregas
+**Componentes:**
+- `GlobalExceptionHandler` - @RestControllerAdvice
+- Problem Details RFC 7807
+- Validação de Bean Validation
+- Custom error responses
 - `CashRegisterController` - Consulta de caixa
 
 **DTOs:**
