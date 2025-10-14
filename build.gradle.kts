@@ -93,6 +93,12 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured:5.5.0")
     testImplementation("net.datafaker:datafaker:2.4.2")
     
+    // Explicit JUnit Platform dependencies for Java 25
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.3")
+    
     // ArchUnit - Architecture Testing
     testImplementation("com.tngtech.archunit:archunit-junit5:1.3.0")
 }
@@ -106,7 +112,9 @@ dependencyManagement {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+    // Temporarily disable JaCoCo for Java 25 compatibility issues
+    // finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.jacocoTestReport {
@@ -132,7 +140,7 @@ tasks.jacocoTestReport {
 }
 
 jacoco {
-    toolVersion = "0.8.12"
+    toolVersion = "0.8.13" // Latest version with Java 25 support
 }
 
 tasks.jacocoTestCoverageVerification {
