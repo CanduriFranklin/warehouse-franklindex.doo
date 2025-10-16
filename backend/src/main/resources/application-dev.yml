@@ -5,7 +5,7 @@
 spring:
   # Development Database (use environment variables for credentials)
   datasource:
-    url: jdbc:postgresql://localhost:5432/warehouse_db_dev
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:warehouse_db}
   
   # Show SQL for debugging
   jpa:

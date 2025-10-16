@@ -57,6 +57,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
 ENTRYPOINT ["dumb-init", "--"]
 
 # Run application with optimized JVM settings
+# Using exploded JAR layers, so use -cp instead of -jar
 CMD ["java", \
      "-XX:+UseContainerSupport", \
      "-XX:MaxRAMPercentage=75.0", \
@@ -65,4 +66,5 @@ CMD ["java", \
      "-XX:+OptimizeStringConcat", \
      "-Djava.security.egd=file:/dev/./urandom", \
      "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod}", \
-     "org.springframework.boot.loader.launch.JarLauncher"]
+     "-cp", "/app:/app/lib/*", \
+     "br.com.dio.warehouse.WarehouseApplication"]

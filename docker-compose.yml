@@ -49,9 +49,6 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
       RABBITMQ_DEFAULT_VHOST: /
       RABBITMQ_ERLANG_COOKIE: warehouse_secret_cookie_2025
-      # Memory and disk limits
-      RABBITMQ_VM_MEMORY_HIGH_WATERMARK: 256MB
-      RABBITMQ_DISK_FREE_LIMIT: 1GB
     ports:
       - "5672:5672"   # AMQP protocol
       - "15672:15672" # Management UI
@@ -106,45 +103,47 @@ services:
     profiles:
       - tools  # Only start with: docker compose --profile tools up
 
-  # Warehouse Application (Uncomment when ready to run in Docker)
-  # warehouse-app:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   container_name: warehouse-app
-  #   restart: unless-stopped
-  #   environment:
-  #     SPRING_PROFILES_ACTIVE: dev
-  #     DB_HOST: postgres
-  #     DB_PORT: 5432
-  #     DB_NAME: warehouse_db
-  #     DB_USERNAME: warehouse_user
-  #     DB_PASSWORD: warehouse_secure_2025
-  #     RABBITMQ_HOST: rabbitmq
-  #     RABBITMQ_PORT: 5672
-  #     RABBITMQ_USERNAME: guest
-  #     RABBITMQ_PASSWORD: guest
-  #     JWT_SECRET: ${JWT_SECRET:-warehouse_jwt_secret_key_2025}
-  #     USER_PASSWORD: ${USER_PASSWORD:-user123}
-  #     MANAGER_PASSWORD: ${MANAGER_PASSWORD:-manager123}
-  #     ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - warehouse-network
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
-  #     rabbitmq:
-  #       condition: service_healthy
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         cpus: '2.0'
-  #         memory: 1024M
-  #       reservations:
-  #         cpus: '1.0'
-  #         memory: 512M
+  # Warehouse Application (Spring Boot Microservice)
+  warehouse:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: warehouse-app
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: warehouse_db
+      DB_USERNAME: warehouse_user
+      DB_PASSWORD: warehouse_secure_2025
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+      JWT_SECRET: ${JWT_SECRET:-warehouse_jwt_secret_key_2025}
+      USER_PASSWORD: ${USER_PASSWORD:-user123}
+      MANAGER_PASSWORD: ${MANAGER_PASSWORD:-manager123}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+    ports:
+      - "8080:8080"
+    networks:
+      - warehouse-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+        reservations:
+          cpus: '1.0'
+          memory: 512M
+    profiles:
+      - dev
 
   # Frontend Application (React + Vite)
   # Run in development mode with hot reload
