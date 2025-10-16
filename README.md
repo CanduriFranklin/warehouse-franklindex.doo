@@ -381,7 +381,7 @@ Para usar Docker Desktop com WSL2:
 
 **Franklin David Canduri Presilla**  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-0077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/franklin-david-canduri-presilla-b75956266/)  
-📧 Email: franklin.canduri@example.com  
+📧 Email: [candurifranklin90@gmail.com](mailto:candurifranklin90@gmail.com)  
 🌐 GitHub: [@CanduriFranklin](https://github.com/CanduriFranklin)
 
 ---
@@ -934,16 +934,25 @@ curl http://localhost:8080/actuator/health
 
 ## 🏗️ Technology Stack
 
-### Core Technologies
+### Backend Technologies
 - **Java 25 LTS** - Latest long-term support with modern features
 - **Spring Boot 3.5.6** - Full Java 25 compatibility
 - **Spring Cloud 2025.0.0** - Latest microservices patterns
 - **Gradle 9.1.0** - Modern build automation
 
+### Frontend Technologies
+- **React 18** - Modern UI library with hooks
+- **TypeScript 5.x** - Type-safe JavaScript
+- **Vite 7.x** - Lightning-fast build tool
+- **TailwindCSS 4.x** - Utility-first CSS framework
+- **React Router** - Client-side routing
+- **Axios** - HTTP client for API calls
+
 ### Infrastructure
 - **PostgreSQL 16 Alpine** - Latest relational database
 - **RabbitMQ 3.12 Management** - Message broker with UI
-- **Docker & Docker Compose** - Containerization
+- **Docker & Docker Compose** - Containerization with profiles
+- **Nginx 1.27 Alpine** - High-performance web server
 - **Flyway 11.7.2** - Database migrations
 
 ### Architecture & Patterns
@@ -1096,11 +1105,12 @@ Se você quiser melhorar este projeto:
 
 ## ✨ Autor
 
-**Franklin Canduri**  
+**Franklin David Canduri Presilla**  
 [![GitHub](https://img.shields.io/badge/GitHub-CanduriFranklin-181717?logo=github)](https://github.com/CanduriFranklin)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Franklin_Canduri-0077B5?logo=linkedin)](https://linkedin.com/in/franklin-canduri)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Franklin_Canduri-0077B5?logo=linkedin)](https://www.linkedin.com/in/franklin-david-canduri-presilla-b75956266/)
+[![Gmail](https://img.shields.io/badge/Gmail-candurifranklin90-EA4335?logo=gmail&logoColor=white)](mailto:candurifranklin90@gmail.com)
 
-💬 Dúvidas ou sugestões? Abra uma [issue](https://github.com/CanduriFranklin/warehouse-franklindex.doo/issues) ou entre em contato!
+💬 Dúvidas ou sugestões? Abra uma [issue](https://github.com/CanduriFranklin/warehouse-franklindex.doo/issues) ou entre em contato pelo email!
 
 ---
 

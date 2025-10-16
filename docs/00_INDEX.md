@@ -67,9 +67,9 @@ Este documento serve como **índice central** para toda a documentação do proj
 
 | Arquivo | Descrição | Status |
 |---------|-----------|--------|
-| [CHANGELOG.md](../CHANGELOG.md) | Histórico completo de mudanças do projeto | 🟢 |
+| [CHANGELOG.md](CHANGELOG.md) | Histórico completo de mudanças do projeto | 🟢 |
 | [30_RELEASE_NOTES.md](30_RELEASE_NOTES.md) | Notas de release organizadas por versão | 🟢 |
-| [31_CHANGELOG_14_10_2025.md](31_CHANGELOG_14_10_2025.md) | Changelog de 14/10/2025 | 🔵 |
+| [31_CHANGELOG_14_10_2025.md](archive/CHANGELOG_14_10_2025.md) | Changelog de 14/10/2025 | 🔵 |
 
 ---
 
@@ -96,7 +96,7 @@ Este documento serve como **índice central** para toda a documentação do proj
 
 | Arquivo | Descrição | Status |
 |---------|-----------|--------|
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | Guia de contribuição para o projeto | 🟢 |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Guia de contribuição para o projeto | 🟢 |
 | [60_SECURITY_AUDIT.md](60_SECURITY_AUDIT.md) | Auditoria de segurança do projeto | 🟢 |
 
 ---
@@ -210,7 +210,7 @@ Os seguintes arquivos estão **arquivados** (🔵) e mantidos apenas para refer�
 4. [11_TROUBLESHOOTING.md](11_TROUBLESHOOTING.md) - Resolução de problemas
 
 ### **Para Contribuidores:**
-1. [CONTRIBUTING.md](../CONTRIBUTING.md) - Guia de contribuição
+1. [CONTRIBUTING.md](CONTRIBUTING.md) - Guia de contribuição
 2. [03_DEVELOPMENT.md](03_DEVELOPMENT.md) - Práticas de desenvolvimento
 3. [20_STATUS.md](20_STATUS.md) - Status atual
 
@@ -218,9 +218,10 @@ Os seguintes arquivos estão **arquivados** (🔵) e mantidos apenas para refer�
 
 ## 📞 Contato e Suporte
 
-**Autor**: Franklin Canduri  
+**Autor**: Franklin David Canduri Presilla  
 **LinkedIn**: [Franklin David Canduri Presilla](https://www.linkedin.com/in/franklin-david-canduri-presilla-b75956266/)  
-**GitHub**: [@CanduriFranklin](https://github.com/CanduriFranklin)
+**GitHub**: [@CanduriFranklin](https://github.com/CanduriFranklin)  
+**Email**: [candurifranklin90@gmail.com](mailto:candurifranklin90@gmail.com)
 
 ---
 
