@@ -1,5 +1,7 @@
 package br.com.dio.warehouse.domain.event;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Value;
 
@@ -18,6 +20,19 @@ public class DeliveryReceivedEvent {
     Instant occurredOn;
     UUID deliveryBoxId;
     Long totalQuantity;
+
+    @JsonCreator
+    public DeliveryReceivedEvent(
+            @JsonProperty("eventId") UUID eventId,
+            @JsonProperty("occurredOn") Instant occurredOn,
+            @JsonProperty("deliveryBoxId") UUID deliveryBoxId,
+            @JsonProperty("totalQuantity") Long totalQuantity
+    ) {
+        this.eventId = eventId;
+        this.occurredOn = occurredOn;
+        this.deliveryBoxId = deliveryBoxId;
+        this.totalQuantity = totalQuantity;
+    }
 
     public static DeliveryReceivedEvent of(UUID deliveryBoxId, Long totalQuantity) {
         return DeliveryReceivedEvent.builder()

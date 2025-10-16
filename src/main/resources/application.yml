@@ -101,7 +101,7 @@ spring:
 server:
   port: ${SERVER_PORT:8080}
   servlet:
-    context-path: /api
+    # context-path: /api  # Removed to avoid conflicts with @RequestMapping
   error:
     include-message: always
     include-binding-errors: always

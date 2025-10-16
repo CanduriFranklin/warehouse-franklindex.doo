@@ -1,0 +1,113 @@
+# ============================================
+# .dockerignore - Exclude unnecessary files from Docker build
+# This significantly reduces image size and build time
+# ============================================
+
+# Build outputs
+build/
+target/
+bin/
+out/
+*.class
+*.jar
+*.war
+
+# Gradle
+.gradle/
+gradle-wrapper.jar
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+.gitattributes
+.github/
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.p12
+*.jks
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+docs/
+*.md
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Test files
+src/test/
+*Test.java
+*Tests.java
+*TestCase.java
+
+# CI/CD
+.circleci/
+.travis.yml
+.gitlab-ci.yml
+Jenkinsfile
+azure-pipelines.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*.old
+
+# Node modules (if using frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Coverage reports
+coverage/
+.nyc_output/
+jacoco/
+*.exec
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Kubernetes
+k8s/
+kubernetes/
+helm/
+
+# Scripts (optional, uncomment if needed)
+# scripts/
+# *.sh

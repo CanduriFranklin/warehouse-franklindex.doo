@@ -1,0 +1,122 @@
+# Docker Compose - Warehouse Microservice Development Environment
+# Services: PostgreSQL, RabbitMQ, pgAdmin
+# Usage: docker-compose up -d
+
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: warehouse-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: warehouse_db
+      POSTGRES_USER: warehouse_user
+      POSTGRES_PASSWORD: warehouse_secure_2025
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d  # Optional: SQL initialization scripts
+    networks:
+      - warehouse-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U warehouse_user -d warehouse_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # RabbitMQ Message Broker
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    container_name: warehouse-rabbitmq
+    restart: unless-stopped
+    user: rabbitmq:rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_VHOST: /
+      RABBITMQ_ERLANG_COOKIE: warehouse_secret_cookie_2025
+    ports:
+      - "5672:5672"   # AMQP protocol
+      - "15672:15672" # Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_logs:/var/log/rabbitmq
+    networks:
+      - warehouse-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # pgAdmin - PostgreSQL Web Interface (Optional, for database management)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: warehouse-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@warehouse.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - warehouse-network
+    depends_on:
+      - postgres
+
+  # Warehouse Application (Uncomment when ready to run in Docker)
+  # warehouse-app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: warehouse-app
+  #   restart: unless-stopped
+  #   environment:
+  #     SPRING_PROFILES_ACTIVE: dev
+  #     DB_HOST: postgres
+  #     DB_PORT: 5432
+  #     DB_NAME: warehouse_db
+  #     DB_USERNAME: warehouse_user
+  #     DB_PASSWORD: warehouse_pass
+  #     RABBITMQ_HOST: rabbitmq
+  #     RABBITMQ_PORT: 5672
+  #     RABBITMQ_USERNAME: guest
+  #     RABBITMQ_PASSWORD: guest
+  #     JWT_SECRET: ${JWT_SECRET}
+  #     USER_PASSWORD: ${USER_PASSWORD}
+  #     MANAGER_PASSWORD: ${MANAGER_PASSWORD}
+  #     ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - warehouse-network
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     rabbitmq:
+  #       condition: service_healthy
+
+networks:
+  warehouse-network:
+    driver: bridge
+    name: warehouse-network
+
+volumes:
+  postgres_data:
+    name: warehouse_postgres_data
+  rabbitmq_data:
+    name: warehouse_rabbitmq_data
+  rabbitmq_logs:
+    name: warehouse_rabbitmq_logs
+  pgadmin_data:
+    name: warehouse_pgadmin_data

@@ -29,15 +29,23 @@ public class ReceiveDeliveryService implements ReceiveDeliveryUseCase {
         log.info("Receiving delivery of {} baskets", command.totalQuantity());
         
         // Create delivery box with cost and profit margin
+        Money totalCost = Money.of(command.totalCost());
         DeliveryBox deliveryBox = DeliveryBox.builder()
                 .totalQuantity(command.totalQuantity())
                 .validationDate(command.validationDate())
-                .totalCost(Money.of(command.totalCost()))
+                .totalCost(totalCost)
                 .profitMargin(command.profitMarginPercentage().doubleValue())
                 .build();
         
-        // Calculate selling price
-        Money sellingPrice = deliveryBox.calculateSellingPrice(command.profitMarginPercentage().doubleValue());
+        // Calculate unit cost and selling price BEFORE persisting
+        Money unitCost = deliveryBox.calculateUnitCost();
+        // Convert percentage to decimal (25.0 -> 0.25)
+        double marginAsDecimal = command.profitMarginPercentage().doubleValue() / 100.0;
+        Money sellingPrice = deliveryBox.calculateSellingPrice(marginAsDecimal);
+        
+        // Set calculated values
+        deliveryBox.setUnitCost(unitCost);
+        deliveryBox.setSellingPrice(sellingPrice);
         
         // Generate individual baskets
         deliveryBox.generateBaskets(sellingPrice);

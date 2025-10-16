@@ -30,6 +30,18 @@ public class BasketController {
     private final DisposeExpiredBasketsUseCase disposeExpiredBasketsUseCase;
     private final WarehouseMapper mapper;
 
+    @GetMapping
+    @Operation(summary = "Listar cestas", description = "Lista todas as cestas disponíveis no estoque")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    public ResponseEntity<String> listBaskets() {
+        log.info("Listing all baskets");
+        // TODO: Implementar listagem completa de cestas
+        return ResponseEntity.ok("{\"message\":\"Basket listing endpoint - implementation pending\"}");
+    }
+
     @PostMapping("/sell")
     @Operation(summary = "Vender cestas", description = "Registra a venda de cestas básicas disponíveis no estoque")
     @ApiResponses(value = {

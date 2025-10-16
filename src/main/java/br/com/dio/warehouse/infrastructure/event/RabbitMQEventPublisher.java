@@ -1,16 +1,17 @@
 package br.com.dio.warehouse.infrastructure.event;
 
-import br.com.dio.warehouse.application.port.out.EventPublisher;
-import br.com.dio.warehouse.domain.event.BasketsSoldEvent;
-import br.com.dio.warehouse.domain.event.BasketsDisposedEvent;
-import br.com.dio.warehouse.domain.event.DeliveryReceivedEvent;
-import br.com.dio.warehouse.infrastructure.config.RabbitMQConfig;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+
+import br.com.dio.warehouse.application.port.out.EventPublisher;
+import br.com.dio.warehouse.domain.event.BasketsDisposedEvent;
+import br.com.dio.warehouse.domain.event.BasketsSoldEvent;
+import br.com.dio.warehouse.domain.event.DeliveryReceivedEvent;
+import br.com.dio.warehouse.infrastructure.config.RabbitMQConfig;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * RabbitMQ implementation of EventPublisher
@@ -99,9 +100,9 @@ public class RabbitMQEventPublisher implements EventPublisher {
      */
     private String determineRoutingKey(Object event) {
         return switch (event) {
-            case DeliveryReceivedEvent e -> RabbitMQConfig.DELIVERY_ROUTING_KEY;
-            case BasketsSoldEvent e -> RabbitMQConfig.BASKETS_SOLD_ROUTING_KEY;
-            case BasketsDisposedEvent e -> RabbitMQConfig.BASKETS_DISPOSED_ROUTING_KEY;
+            case DeliveryReceivedEvent ignored -> RabbitMQConfig.DELIVERY_ROUTING_KEY;
+            case BasketsSoldEvent ignored -> RabbitMQConfig.BASKETS_SOLD_ROUTING_KEY;
+            case BasketsDisposedEvent ignored -> RabbitMQConfig.BASKETS_DISPOSED_ROUTING_KEY;
             default -> {
                 log.warn("⚠️ Unknown event type: {}", event.getClass().getName());
                 yield null;

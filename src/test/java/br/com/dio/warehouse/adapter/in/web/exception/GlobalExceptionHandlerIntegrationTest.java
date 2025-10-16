@@ -1,10 +1,30 @@
 package br.com.dio.warehouse.adapter.in.web.exception;
 
-import br.com.dio.warehouse.application.port.in.ReceiveDeliveryUseCase;
-import br.com.dio.warehouse.application.port.in.SellBasketsUseCase;
-import br.com.dio.warehouse.domain.exception.BasketNotFoundException;
-import br.com.dio.warehouse.domain.exception.InsufficientStockException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.matchesPattern;
+import static org.hamcrest.Matchers.startsWith;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+/**
+ * Integration tests for GlobalExceptionHandler
+ * Tests exception handling through real REST endpoints
+ */
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,24 +37,12 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-/**
- * Integration tests for GlobalExceptionHandler
- * Tests exception handling through real REST endpoints
- */
-import org.junit.jupiter.api.Disabled;
+import br.com.dio.warehouse.application.port.in.ReceiveDeliveryUseCase;
+import br.com.dio.warehouse.application.port.in.SellBasketsUseCase;
+import br.com.dio.warehouse.domain.exception.BasketNotFoundException;
+import br.com.dio.warehouse.domain.exception.InsufficientStockException;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -63,6 +71,7 @@ class GlobalExceptionHandlerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
     
+    @SuppressWarnings("unused")
     @Autowired
     private ReceiveDeliveryUseCase receiveDeliveryUseCase;
     

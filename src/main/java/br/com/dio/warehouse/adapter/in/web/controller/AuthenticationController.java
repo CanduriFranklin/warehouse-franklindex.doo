@@ -141,6 +141,51 @@ public class AuthenticationController {
     }
     
     /**
+     * Get current authenticated user info
+     * 
+     * @return Current user information
+     */
+    @Operation(
+            summary = "Get Current User",
+            description = "Get information about the currently authenticated user"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "User information retrieved successfully"
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "User is not authenticated"
+            )
+    })
+    @GetMapping("/me")
+    public ResponseEntity<JwtAuthenticationResponse> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).build();
+        }
+        
+        // Extract roles
+        String roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        
+        // Build response with user info
+        JwtAuthenticationResponse response = JwtAuthenticationResponse.of(
+                null, // No token in response
+                Instant.now().plusMillis(tokenProvider.getExpirationMs()),
+                authentication.getName(),
+                roles
+        );
+        
+        log.info("Current user info retrieved: {}", authentication.getName());
+        
+        return ResponseEntity.ok(response);
+    }
+    
+    /**
      * Validate JWT token
      * 
      * @return Token validation status

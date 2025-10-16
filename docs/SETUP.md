@@ -1,11 +1,232 @@
-# 🚀 Quick Start Guide - Local Development
+# 🚀 Complete Setup Guide - Warehouse Microservice
 
-## Prerequisites
+**Step-by-step guide to set up your local development environment**
 
-- Java 25 (IBM Semeru Runtime or equivalent)
-- PostgreSQL 15+
-- RabbitMQ 3.12+
-- Docker (optional, for databases)
+---
+
+## 📋 Table of Contents
+
+1. [Prerequisites](#prerequisites)
+2. [Java 25 Installation](#java-25-installation)
+3. [Gradle Installation](#gradle-installation)
+4. [Docker Setup](#docker-setup)
+5. [Environment Configuration](#environment-configuration)
+6. [Database Setup](#database-setup)
+7. [Running the Application](#running-the-application)
+8. [Verification](#verification)
+
+---
+
+## ✅ Prerequisites
+
+### Required Software
+
+| Software | Version | Purpose |
+|----------|---------|---------|
+| **Java** | 25 LTS | Runtime and compilation |
+| **Gradle** | 9.1.0 | Build automation |
+| **Docker Desktop** | 28.4.0+ | Container orchestration |
+| **Git** | 2.0+ | Version control |
+
+### Recommended (Optional)
+
+- **IDE**: IntelliJ IDEA 2024+ or VS Code with Java extensions
+- **Postman** or **Insomnia**: API testing
+- **DBeaver** or **DataGrip**: Database management
+
+---
+
+## ☕ Java 25 Installation
+
+### Option 1: Using SDKMAN! (Recommended for Linux/Mac/WSL)
+
+```bash
+# Install SDKMAN! if not installed
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Install Java 25 (IBM Semeru)
+sdk install java 25-sem
+
+# Or install Eclipse Temurin
+sdk install java 25-tem
+
+# Set as default
+sdk default java 25-sem
+
+# Verify installation
+java -version
+```
+
+### Option 2: Manual Installation
+
+#### Linux (Ubuntu/Debian)
+
+```bash
+# Download Eclipse Temurin 25
+wget https://adoptium.net/releases.html
+
+# Extract
+sudo mkdir -p /usr/lib/jvm
+sudo tar -xzf OpenJDK25U-jdk_x64_linux_*.tar.gz -C /usr/lib/jvm/
+
+# Set JAVA_HOME
+echo 'export JAVA_HOME=/usr/lib/jvm/jdk-25' >> ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+
+# Verify
+java -version
+```
+
+#### Windows
+
+1. Download from: https://adoptium.net/
+2. Run installer
+3. Set `JAVA_HOME` environment variable
+4. Add `%JAVA_HOME%\bin` to PATH
+
+#### macOS
+
+```bash
+# Using Homebrew
+brew install openjdk@25
+
+# Set JAVA_HOME
+echo 'export JAVA_HOME=/opt/homebrew/opt/openjdk@25' >> ~/.zshrc
+source ~/.zshrc
+
+# Verify
+java -version
+```
+
+### Expected Output
+
+```
+openjdk version "25" 2025-09-16
+IBM Semeru Runtime Open Edition 25+36 (build 25+36-openj9-0.55.0)
+```
+
+---
+
+## 🔧 Gradle Installation
+
+### Option 1: Using SDKMAN! (Recommended)
+
+```bash
+# Install Gradle 9.1.0
+sdk install gradle 9.1.0
+
+# Set as default
+sdk default gradle 9.1.0
+
+# Verify
+gradle --version
+```
+
+### Option 2: Manual Installation (Linux)
+
+```bash
+# Download Gradle 9.1.0
+wget https://services.gradle.org/distributions/gradle-9.1.0-bin.zip
+
+# Extract
+sudo mkdir /opt/gradle
+sudo unzip -d /opt/gradle gradle-9.1.0-bin.zip
+
+# Set environment variables
+echo 'export GRADLE_HOME=/opt/gradle/gradle-9.1.0' >> ~/.bashrc
+echo 'export PATH=${GRADLE_HOME}/bin:${PATH}' >> ~/.bashrc
+source ~/.bashrc
+
+# Verify
+gradle --version
+```
+
+### Expected Output
+
+```
+------------------------------------------------------------
+Gradle 9.1.0
+------------------------------------------------------------
+
+Build time:   2025-09-18 13:05:56 UTC
+Revision:     e45a8dbf2470c2e2474ccc25be9f49331406a07e
+
+Kotlin:       2.2.0
+Groovy:       4.0.28
+JVM:          25 (Eclipse OpenJ9 25+36-openj9-0.55.0)
+OS:           Linux 6.6.87.2-microsoft-standard-WSL2 amd64
+```
+
+---
+
+## 🐳 Docker Setup
+
+### Windows (with WSL2)
+
+1. **Download Docker Desktop**
+   - Visit: https://www.docker.com/products/docker-desktop
+   - Download Windows version
+   - Run installer
+
+2. **Enable WSL2 Integration**
+   - Open Docker Desktop
+   - Settings → Resources → WSL Integration
+   - Enable integration for your WSL2 distro (Ubuntu)
+
+3. **Verify Installation** (in WSL2 terminal)
+
+```bash
+# Check Docker
+docker --version
+# Expected: Docker version 28.4.0
+
+# Check Docker Compose
+docker-compose --version
+# Expected: Docker Compose version v2.x.x
+
+# Test Docker
+docker run hello-world
+```
+
+### Linux
+
+```bash
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# Add user to docker group
+sudo usermod -aG docker $USER
+
+# Restart session
+newgrp docker
+
+# Install Docker Compose
+sudo apt-get install docker-compose-plugin
+
+# Verify
+docker --version
+docker-compose --version
+```
+
+### macOS
+
+```bash
+# Download Docker Desktop for Mac
+# https://www.docker.com/products/docker-desktop
+
+# Or using Homebrew
+brew install --cask docker
+
+# Verify
+docker --version
+```
+
+---
+
+## ⚙️ Environment Configuration
 
 ## 🔒 Step 1: Configure Environment Variables
 

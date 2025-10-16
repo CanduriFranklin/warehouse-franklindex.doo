@@ -1,7 +1,7 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.4.0"
-    id("io.spring.dependency-management") version "1.1.6"
+    id("org.springframework.boot") version "3.5.6"
+    id("io.spring.dependency-management") version "1.1.7"
     id("org.flywaydb.flyway") version "10.20.1"
     id("com.google.cloud.tools.jib") version "3.4.4"
     id("jacoco")
@@ -17,6 +17,8 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(25))
     }
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 configurations {
@@ -29,7 +31,7 @@ repositories {
     mavenCentral()
 }
 
-extra["springCloudVersion"] = "2024.0.0"
+extra["springCloudVersion"] = "2025.0.0"  // Compatible with Spring Boot 3.5.x
 extra["testcontainersVersion"] = "1.20.4"
 extra["mapstructVersion"] = "1.6.3"
 
@@ -197,7 +199,7 @@ sonarqube {
         property("sonar.projectName", "Warehouse Microservice")
         property("sonar.sourceEncoding", "UTF-8")
         property("sonar.java.coveragePlugin", "jacoco")
-        property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+        property("sonar.coverage.jacoco.xmlReportPaths", "${layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml")
         property("sonar.exclusions", "**/config/**,**/dto/**,**/entity/**,**/*Application*")
     }
 }
@@ -227,4 +229,31 @@ tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
 
 tasks.named<Jar>("jar") {
     enabled = false
+}
+
+// Java 25 compatibility settings
+tasks.withType<JavaCompile> {
+    options.release.set(25)
+    options.compilerArgs.addAll(listOf(
+        "--enable-preview",
+        "-Amapstruct.verbose=true",
+        "-Amapstruct.suppressGeneratorTimestamp=true",
+        "-Amapstruct.defaultComponentModel=spring"
+    ))
+}
+
+tasks.withType<Test> {
+    jvmArgs(
+        "--enable-preview",
+        "--add-opens=java.base/java.lang=ALL-UNNAMED"
+    )
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+    jvmArgs(
+        "--enable-preview",
+        "--add-opens=java.base/java.lang=ALL-UNNAMED",
+        "--add-opens=java.base/java.lang.invoke=ALL-UNNAMED",
+        "--add-opens=java.base/java.util=ALL-UNNAMED"
+    )
 }
