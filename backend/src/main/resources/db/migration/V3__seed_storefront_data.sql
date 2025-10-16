@@ -8,20 +8,20 @@
 -- =====================================================
 INSERT INTO produtos (id, nome, descricao, preco, quantidade_estoque, categoria, ativo) VALUES
 -- Eletrônicos
-('11111111-1111-1111-1111-111111111111', 'Notebook Dell Inspiron 15', 'Intel Core i7, 16GB RAM, 512GB SSD', 3499.99, 50, 'Eletrônicos', 1),
-('22222222-2222-2222-2222-222222222222', 'Mouse Logitech MX Master 3', 'Mouse sem fio ergonômico profissional', 449.90, 100, 'Eletrônicos', 1),
-('33333333-3333-3333-3333-333333333333', 'Teclado Mecânico Keychron K8', 'Teclado mecânico wireless 87 teclas', 699.00, 75, 'Eletrônicos', 1),
-('44444444-4444-4444-4444-444444444444', 'Monitor LG 27" 4K UHD', 'Monitor IPS 27 polegadas 4K HDR', 1899.00, 30, 'Eletrônicos', 1),
-('55555555-5555-5555-5555-555555555555', 'Webcam Logitech C920', 'Full HD 1080p com microfone embutido', 389.90, 60, 'Eletrônicos', 1),
+('11111111-1111-1111-1111-111111111111', 'Notebook Dell Inspiron 15', 'Intel Core i7, 16GB RAM, 512GB SSD', 3499.99, 50, 'Eletrônicos', true),
+('22222222-2222-2222-2222-222222222222', 'Mouse Logitech MX Master 3', 'Mouse sem fio ergonômico profissional', 449.90, 100, 'Eletrônicos', true),
+('33333333-3333-3333-3333-333333333333', 'Teclado Mecânico Keychron K8', 'Teclado mecânico wireless 87 teclas', 699.00, 75, 'Eletrônicos', true),
+('44444444-4444-4444-4444-444444444444', 'Monitor LG 27" 4K UHD', 'Monitor IPS 27 polegadas 4K HDR', 1899.00, 30, 'Eletrônicos', true),
+('55555555-5555-5555-5555-555555555555', 'Webcam Logitech C920', 'Full HD 1080p com microfone embutido', 389.90, 60, 'Eletrônicos', true),
 
 -- Livros
-('66666666-6666-6666-6666-666666666666', 'Clean Code - Robert C. Martin', 'Um guia de boas práticas de programação', 89.90, 200, 'Livros', 1),
-('77777777-7777-7777-7777-777777777777', 'Domain-Driven Design - Eric Evans', 'O livro clássico sobre DDD', 129.90, 150, 'Livros', 1),
-('88888888-8888-8888-8888-888888888888', 'Design Patterns - Gang of Four', 'Padrões de projeto orientados a objetos', 99.90, 180, 'Livros', 1),
+('66666666-6666-6666-6666-666666666666', 'Clean Code - Robert C. Martin', 'Um guia de boas práticas de programação', 89.90, 200, 'Livros', true),
+('77777777-7777-7777-7777-777777777777', 'Domain-Driven Design - Eric Evans', 'O livro clássico sobre DDD', 129.90, 150, 'Livros', true),
+('88888888-8888-8888-8888-888888888888', 'Design Patterns - Gang of Four', 'Padrões de projeto orientados a objetos', 99.90, 180, 'Livros', true),
 
 -- Acessórios
-('99999999-9999-9999-9999-999999999999', 'Fone de Ouvido Sony WH-1000XM5', 'Cancelamento de ruído ativo premium', 1799.00, 40, 'Acessórios', 1),
-('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Mochila para Notebook Targus 15.6"', 'Compartimento acolchoado para laptop', 189.90, 120, 'Acessórios', 1);
+('99999999-9999-9999-9999-999999999999', 'Fone de Ouvido Sony WH-1000XM5', 'Cancelamento de ruído ativo premium', 1799.00, 40, 'Acessórios', true),
+('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Mochila para Notebook Targus 15.6"', 'Compartimento acolchoado para laptop', 189.90, 120, 'Acessórios', true);
 
 -- =====================================================
 -- CLIENTES DE EXEMPLO
