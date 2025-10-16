@@ -7,9 +7,12 @@
 [![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED.svg)](https://www.docker.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg)](https://www.postgresql.org/)
 [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3.12-FF6600.svg)](https://www.rabbitmq.com/)
+[![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04_LTS-E95420.svg?logo=ubuntu&logoColor=white)](https://ubuntu.com/)
+[![WSL2](https://img.shields.io/badge/WSL-2-0078D4.svg?logo=windows&logoColor=white)](https://docs.microsoft.com/windows/wsl/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Warehouse Status](https://img.shields.io/badge/Warehouse-Production_Ready-success.svg)](docs/PROJECT_VALIDATION_OCTOBER_15_2025.md)
 [![Storefront Status](https://img.shields.io/badge/Storefront-Planned-yellow.svg)](docs/STOREFRONT_MICROSERVICE_PLAN.md)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Franklin_Canduri-0077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/franklin-david-canduri-presilla-b75956266/)
 
 ---
 
@@ -269,11 +272,117 @@ README.md
 Para mais detalhes sobre Docker e otimizações, consulte:
 - [docs/DOCKER_SETUP.md](docs/DOCKER_SETUP.md) - Guia completo de configuração Docker
 - [docs/DOCKER_OPTIMIZATION.md](docs/DOCKER_OPTIMIZATION.md) - Detalhes técnicos das otimizações
+- [docs/DOCKER_CLEANUP.md](docs/DOCKER_CLEANUP.md) - Guia de limpeza de imagens Docker/Kubernetes
 - [frontend/FRONTEND_README.md](frontend/FRONTEND_README.md) - Documentação específica do frontend
 
 ---
 
-## 💡 Demonstração Prática de Tecnologias
+## � Ambiente de Desenvolvimento
+
+### Sistema Operacional
+
+Este projeto foi desenvolvido e testado em **Ubuntu 24.04 LTS** rodando sobre **WSL2 (Windows Subsystem for Linux 2)**.
+
+#### **Distribuições Suportadas**
+
+| Distribuição | Versão | Status | WSL2 |
+|--------------|--------|--------|------|
+| **Ubuntu** | 24.04 LTS (Noble Numbat) | ✅ Recomendado | Sim |
+| **Ubuntu** | 22.04 LTS (Jammy Jellyfish) | ✅ Suportado | Sim |
+| **Ubuntu** | 20.04 LTS (Focal Fossa) | ✅ Suportado | Sim |
+| **Debian** | 12 (Bookworm) | ✅ Suportado | Sim |
+| **Debian** | 11 (Bullseye) | ✅ Suportado | Sim |
+| **Fedora** | 39+ | ⚠️ Compatível* | Sim |
+| **openSUSE** | Leap 15.5 | ⚠️ Compatível* | Sim |
+
+*_Compatível com ajustes mínimos nos comandos de instalação de pacotes._
+
+#### **Requisitos do Sistema**
+
+**Windows (para WSL2)**:
+- Windows 10 versão 2004+ (Build 19041+) ou Windows 11
+- WSL2 habilitado
+- 8 GB RAM (recomendado 16 GB)
+- 50 GB de espaço livre em disco
+
+**Linux Nativo**:
+- Kernel 5.4+
+- 8 GB RAM (recomendado 16 GB)
+- 50 GB de espaço livre em disco
+
+#### **Verificar Versão do Sistema**
+
+```bash
+# Ubuntu/Debian
+lsb_release -a
+
+# Versão do kernel
+uname -r
+
+# Verificar se está no WSL2
+uname -a | grep -i microsoft
+```
+
+#### **Configuração WSL2**
+
+Se estiver usando Windows, siga estas etapas:
+
+```powershell
+# 1. Habilitar WSL2 (PowerShell como Administrador)
+wsl --install
+
+# 2. Definir WSL2 como padrão
+wsl --set-default-version 2
+
+# 3. Instalar Ubuntu 24.04
+wsl --install -d Ubuntu-24.04
+
+# 4. Verificar versão do WSL
+wsl --list --verbose
+```
+
+#### **Pacotes Necessários (Ubuntu/Debian)**
+
+```bash
+# Atualizar sistema
+sudo apt update && sudo apt upgrade -y
+
+# Instalar dependências essenciais
+sudo apt install -y \
+  build-essential \
+  curl \
+  wget \
+  git \
+  ca-certificates \
+  gnupg \
+  lsb-release
+
+# Docker (integrado via Docker Desktop no Windows + WSL2)
+# Ou instalar Docker Engine nativo no Linux:
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker $USER
+```
+
+#### **Integração Docker Desktop + WSL2**
+
+Para usar Docker Desktop com WSL2:
+
+1. Instale [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/)
+2. Vá em **Settings** → **Resources** → **WSL Integration**
+3. Habilite integração para Ubuntu-24.04
+4. Reinicie o WSL: `wsl --shutdown` (no PowerShell)
+
+#### **Autor**
+
+**Franklin David Canduri Presilla**  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectar-0077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/franklin-david-canduri-presilla-b75956266/)  
+📧 Email: franklin.canduri@example.com  
+🌐 GitHub: [@CanduriFranklin](https://github.com/CanduriFranklin)
+
+---
+
+## �💡 Demonstração Prática de Tecnologias
 
 Este projeto demonstra a implementação prática de:
 - **Arquitetura de Microsserviços** com Spring Cloud
