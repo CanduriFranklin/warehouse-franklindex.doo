@@ -269,11 +269,15 @@ README.md
 
 ### 📚 Documentação Completa
 
-Para mais detalhes sobre Docker e otimizações, consulte:
-- [docs/DOCKER_SETUP.md](docs/DOCKER_SETUP.md) - Guia completo de configuração Docker
-- [docs/DOCKER_OPTIMIZATION.md](docs/DOCKER_OPTIMIZATION.md) - Detalhes técnicos das otimizações
-- [docs/DOCKER_CLEANUP.md](docs/DOCKER_CLEANUP.md) - Guia de limpeza de imagens Docker/Kubernetes
-- [frontend/FRONTEND_README.md](frontend/FRONTEND_README.md) - Documentação específica do frontend
+**📖 Índice Geral**: [docs/00_INDEX.md](docs/00_INDEX.md) - Navegação completa de toda a documentação
+
+**Documentação Docker**:
+- [docs/02_DOCKER_SETUP.md](docs/02_DOCKER_SETUP.md) - Guia completo de configuração Docker
+- [docs/04_DOCKER_OPTIMIZATION.md](docs/04_DOCKER_OPTIMIZATION.md) - Detalhes técnicos das otimizações
+- [docs/06_DOCKER_CLEANUP.md](docs/06_DOCKER_CLEANUP.md) - Guia de limpeza de imagens Docker/Kubernetes
+
+**Documentação Frontend**:
+- [frontend/FRONTEND_README.md](frontend/FRONTEND_README.md) - Documentação completa do frontend (React + Docker)
 
 ---
 
@@ -918,9 +922,11 @@ curl http://localhost:8080/actuator/health
 - **[Security Guide](SECURITY.md)** - Security configuration and best practices
 
 ### Architecture & Design
-- **[RabbitMQ Implementation](docs/SPRINT_3_RABBITMQ.md)** - Event-driven architecture
-- **[RabbitMQ Summary](RABBITMQ_IMPLEMENTATION_SUMMARY.md)** - Quick reference
-- **[Security Audit](SECURITY_AUDIT.md)** - Security improvements log
+- **[Development Guide](docs/03_DEVELOPMENT.md)** - Development practices and guidelines
+- **[RabbitMQ Implementation](docs/42_SPRINT_3_RABBITMQ.md)** - Event-driven architecture
+- **[RabbitMQ Summary](docs/40_RABBITMQ_IMPLEMENTATION.md)** - Complete RabbitMQ integration
+- **[Security Guide](docs/12_SECURITY.md)** - Security best practices
+- **[Security Audit](docs/60_SECURITY_AUDIT.md)** - Security improvements log
 
 ### API Documentation
 - **[Swagger UI](http://localhost:8080/swagger-ui.html)** - Interactive API documentation
@@ -1111,12 +1117,16 @@ Se você quiser melhorar este projeto:
 ## 📚 Recursos Adicionais
 
 ### Documentação Técnica
-- [📖 Guia de Deployment](docs/DEPLOYMENT_GUIDE.md)
-- [🐳 Setup Docker](docs/DOCKER_SETUP.md)
-- [🔐 Guia de Segurança](docs/SECURITY.md)
-- [🐰 Implementação RabbitMQ](docs/SPRINT_3_RABBITMQ.md)
-- [🛠️ Troubleshooting](docs/TROUBLESHOOTING.md)
-- [✅ Validação do Projeto (Oct 15, 2025)](docs/PROJECT_VALIDATION_OCTOBER_15_2025.md)
+- [� Índice Completo de Documentação](docs/00_INDEX.md) - Navegação de toda documentação
+- [🚀 Quick Start](docs/01_QUICK_START.md) - Começando rapidamente
+- [�📖 Guia de Deployment](docs/10_DEPLOYMENT_GUIDE.md) - Deploy em produção
+- [🐳 Setup Docker](docs/02_DOCKER_SETUP.md) - Configuração Docker
+- [⚡ Otimizações Docker](docs/04_DOCKER_OPTIMIZATION.md) - Performance e recursos
+- [🔐 Guia de Segurança](docs/12_SECURITY.md) - Práticas de segurança
+- [🐰 Implementação RabbitMQ](docs/42_SPRINT_3_RABBITMQ.md) - Mensageria assíncrona
+- [🛠️ Troubleshooting](docs/11_TROUBLESHOOTING.md) - Resolução de problemas
+- [✅ Validação do Projeto (Oct 16, 2025)](docs/21_VALIDATION_16_10_2025.md) - Validação mais recente
+- [📊 Status do Projeto](docs/20_STATUS.md) - Status atual
 
 ### Decisões Arquiteturais (ADRs)
 - [🏛️ Architecture Decision Records](docs/adr/)
