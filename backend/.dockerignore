@@ -1,0 +1,61 @@
+# Gradle
+.gradle/
+build/
+gradle-app.setting
+.gradletasknamecache
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+bin/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.swn
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Logs
+logs/
+*.log
+
+# Test
+.jacoco/
+*.exec
+
+# Documentation
+README.md
+*.md
+CHANGELOG.md
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Security
+*.key
+*.pem
+*.p12
+*.jks
+secrets/
+
+# Misc
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup

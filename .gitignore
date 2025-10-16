@@ -108,3 +108,105 @@ dependency-check-report.html
 dependency-check-report.json
 dependency-check-report.xml
 odc.mv.db
+
+### Frontend (Node.js/React/Vite) ###
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.vite/
+frontend/.cache/
+frontend/coverage/
+frontend/.nyc_output/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/.DS_Store
+frontend/*.local
+
+### NPM/Yarn ###
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+### Database ###
+*.db
+*.sqlite
+*.sqlite3
+pgdata/
+postgres-data/
+data/
+
+### Logs ###
+*.log
+*.log.*
+logs/
+log/
+*.pid
+*.seed
+*.pid.lock
+
+### Backup files ###
+*.bak
+*.backup
+*.old
+*.orig
+*~
+
+### Sensitive Configuration ###
+application-prod.yml
+application-prod.properties
+application-secret.yml
+application-secret.properties
+jwt-secret.txt
+api-keys.txt
+credentials.json
+
+### IDE - Additional ###
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+.project
+.classpath
+.settings/
+
+### Cloud & Deployment ###
+.terraform/
+*.tfstate
+*.tfstate.*
+.aws/
+gcp-credentials.json
+azure-credentials.json
+
+### Certificates & Keys ###
+*.crt
+*.der
+*.pfx
+*.p7b
+*.p7r
+*.spc
+ssl/
+certs/
+
+### RabbitMQ Mnesia ###
+mnesia/
+rabbit@*/
+
+### Docker volumes data ###
+volumes/
+docker-data/
+
+### Temporary files ###
+tmp/
+temp/
+*.tmp
+*.temp
+cache/

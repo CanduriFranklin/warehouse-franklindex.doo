@@ -37,13 +37,25 @@ docker-compose --version
 
 ## 🏗️ Serviços Disponíveis
 
-| Serviço | Porta | Descrição | Interface Web |
-|---------|-------|-----------|---------------|
-| **PostgreSQL** | 5432 | Banco de dados relacional | - |
-| **RabbitMQ** | 5672 | Message broker (AMQP) | http://localhost:15672 |
-| **RabbitMQ Management** | 15672 | Interface de gerenciamento | ✅ Sim |
-| **pgAdmin** | 5050 | Interface web para PostgreSQL | http://localhost:5050 |
-| **Warehouse API** | 8080 | Aplicação Spring Boot | http://localhost:8080 |
+| Serviço | Porta | Descrição | Interface Web | Profile |
+|---------|-------|-----------|---------------|---------|
+| **PostgreSQL** | 5432 | Banco de dados relacional | - | - |
+| **RabbitMQ** | 5672 | Message broker (AMQP) | http://localhost:15672 | - |
+| **RabbitMQ Management** | 15672 | Interface de gerenciamento | ✅ Sim | - |
+| **pgAdmin** | 5050 | Interface web para PostgreSQL | http://localhost:5050 | tools |
+| **Warehouse API** | 8080 | Aplicação Spring Boot | http://localhost:8080 | - |
+| **Frontend Dev** | 5173 | React com Vite (hot reload) | http://localhost:5173 | dev |
+| **Frontend Prod** | 80 | React + Nginx (otimizado) | http://localhost | prod |
+
+### 📊 Consumo de Recursos por Serviço
+
+| Serviço | CPU Limit | RAM Limit | CPU Reserved | RAM Reserved |
+|---------|-----------|-----------|--------------|--------------|
+| **PostgreSQL** | 1.0 | 512M | 0.5 | 256M |
+| **RabbitMQ** | 1.0 | 512M | 0.5 | 256M |
+| **pgAdmin** | 0.5 | 256M | 0.25 | 128M |
+| **Frontend Dev** | 1.0 | 512M | 0.5 | 256M |
+| **Frontend Prod** | 0.5 | 128M | 0.25 | 64M |
 
 ### Credenciais Padrão
 
@@ -59,6 +71,33 @@ docker-compose --version
 **pgAdmin:**
 - Email: `admin@warehouse.com`
 - Password: `admin`
+
+### 🚀 Frontend: Desenvolvimento vs Produção
+
+#### **Frontend Dev** (Profile: `dev`)
+- **Tecnologia**: Node.js 20 + Vite
+- **Features**:
+  - Hot Module Replacement (HMR)
+  - Source maps para debugging
+  - Fast refresh (React)
+  - Mapeamento de volume (código local)
+- **Uso**: Desenvolvimento local com auto-reload
+- **Porta**: 5173
+- **Comando**: `docker compose --profile dev up frontend-dev`
+
+#### **Frontend Prod** (Profile: `prod`)
+- **Tecnologia**: Nginx 1.27 Alpine
+- **Features**:
+  - Multi-stage build otimizado
+  - Gzip compression (60-80% menor)
+  - Security headers (XSS, clickjacking)
+  - Cache de assets estáticos (1 ano)
+  - React Router support (SPA)
+  - Healthcheck integrado
+- **Imagem**: ~20 MB (vs ~500 MB sem otimização)
+- **Uso**: Teste de produção local ou deploy
+- **Porta**: 80
+- **Comando**: `docker compose --profile prod up --build frontend-prod`
 
 ---
 
@@ -90,18 +129,50 @@ RABBITMQ_PASSWORD=guest
 JWT_SECRET=$(openssl rand -base64 64)  # Gerar segredo forte
 ```
 
-### 2. Iniciar Todos os Serviços
+### 2. Iniciar Serviços com Profiles
+
+> **✨ NOVO**: Suporte a profiles para execução seletiva de serviços!
 
 ```bash
-# Modo detached (background)
-docker-compose up -d
+# Apenas infraestrutura básica (PostgreSQL + RabbitMQ)
+docker compose up -d
+
+# Infraestrutura + Frontend em modo desenvolvimento (hot reload)
+docker compose --profile dev up frontend-dev
+
+# Infraestrutura + Frontend em modo produção (Nginx otimizado)
+docker compose --profile prod up --build frontend-prod
+
+# Infraestrutura + Ferramentas de administração (pgAdmin)
+docker compose --profile tools up pgadmin
+
+# Combinar múltiplos profiles
+docker compose --profile dev --profile tools up
 
 # Verificar status
-docker-compose ps
+docker compose ps
 
 # Ver logs
-docker-compose logs -f
+docker compose logs -f
 ```
+
+**Profiles disponíveis:**
+
+| Profile | Serviços Adicionais | Uso Recomendado |
+|---------|---------------------|-----------------|
+| **(nenhum)** | postgres, rabbitmq | Infraestrutura básica |
+| **dev** | frontend-dev | Desenvolvimento com hot reload |
+| **prod** | frontend-prod | Teste de produção local |
+| **tools** | pgadmin | Administração de banco de dados |
+
+**Consumo de recursos por profile:**
+
+| Profile | CPU Total | RAM Total |
+|---------|-----------|-----------|
+| Nenhum | 2.0 cores | 1024 MB |
+| dev | 3.0 cores | 1536 MB |
+| prod | 2.5 cores | 1152 MB |
+| tools | 2.5 cores | 1280 MB |
 
 ### 3. Aguardar Health Checks
 

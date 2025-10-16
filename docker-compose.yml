@@ -28,10 +28,19 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
 
   # RabbitMQ Message Broker
   rabbitmq:
-    image: rabbitmq:3.12-management-alpine
+    image: rabbitmq:3.13-management-alpine
     container_name: warehouse-rabbitmq
     restart: unless-stopped
     user: rabbitmq:rabbitmq
@@ -40,6 +49,9 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
       RABBITMQ_DEFAULT_VHOST: /
       RABBITMQ_ERLANG_COOKIE: warehouse_secret_cookie_2025
+      # Memory and disk limits
+      RABBITMQ_VM_MEMORY_HIGH_WATERMARK: 256MB
+      RABBITMQ_DISK_FREE_LIMIT: 1GB
     ports:
       - "5672:5672"   # AMQP protocol
       - "15672:15672" # Management UI
@@ -54,10 +66,19 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
 
   # pgAdmin - PostgreSQL Web Interface (Optional, for database management)
   pgadmin:
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:8.12
     container_name: warehouse-pgadmin
     restart: unless-stopped
     environment:
@@ -73,11 +94,22 @@ services:
       - warehouse-network
     depends_on:
       - postgres
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    profiles:
+      - tools  # Only start with: docker compose --profile tools up
 
   # Warehouse Application (Uncomment when ready to run in Docker)
   # warehouse-app:
   #   build:
-  #     context: .
+  #     context: ./backend
   #     dockerfile: Dockerfile
   #   container_name: warehouse-app
   #   restart: unless-stopped
@@ -87,15 +119,15 @@ services:
   #     DB_PORT: 5432
   #     DB_NAME: warehouse_db
   #     DB_USERNAME: warehouse_user
-  #     DB_PASSWORD: warehouse_pass
+  #     DB_PASSWORD: warehouse_secure_2025
   #     RABBITMQ_HOST: rabbitmq
   #     RABBITMQ_PORT: 5672
   #     RABBITMQ_USERNAME: guest
   #     RABBITMQ_PASSWORD: guest
-  #     JWT_SECRET: ${JWT_SECRET}
-  #     USER_PASSWORD: ${USER_PASSWORD}
-  #     MANAGER_PASSWORD: ${MANAGER_PASSWORD}
-  #     ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+  #     JWT_SECRET: ${JWT_SECRET:-warehouse_jwt_secret_key_2025}
+  #     USER_PASSWORD: ${USER_PASSWORD:-user123}
+  #     MANAGER_PASSWORD: ${MANAGER_PASSWORD:-manager123}
+  #     ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
   #   ports:
   #     - "8080:8080"
   #   networks:
@@ -105,6 +137,71 @@ services:
   #       condition: service_healthy
   #     rabbitmq:
   #       condition: service_healthy
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '2.0'
+  #         memory: 1024M
+  #       reservations:
+  #         cpus: '1.0'
+  #         memory: 512M
+
+  # Frontend Application (React + Vite)
+  # Run in development mode with hot reload
+  frontend-dev:
+    image: node:20-alpine
+    container_name: warehouse-frontend-dev
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      NODE_ENV: development
+      VITE_API_URL: http://localhost:8080/api
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  # Anonymous volume to prevent overwriting
+    networks:
+      - warehouse-network
+    # Resource limits for frontend dev
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    profiles:
+      - dev  # Only start with: docker compose --profile dev up
+  
+  # Frontend Production Build (Nginx)
+  
+  # Frontend Production Build (Nginx)
+  # Build optimized frontend image with multi-stage Docker
+  frontend-prod:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        VITE_API_URL: http://localhost:8080/api
+    container_name: warehouse-frontend-prod
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - warehouse-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    profiles:
+      - prod
 
 networks:
   warehouse-network:

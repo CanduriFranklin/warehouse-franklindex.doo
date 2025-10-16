@@ -1,0 +1,52 @@
+# Storefront Service Configuration
+# Este arquivo contém configurações específicas do módulo Storefront
+
+# RabbitMQ Custom Properties para Storefront
+rabbitmq:
+  exchange:
+    storefront: storefront.events
+  queue:
+    pedidos: storefront.pedidos
+    carrinho: storefront.carrinho
+
+# Configurações específicas do Storefront
+storefront:
+  pedido:
+    prefixo: PED
+    numero-formato: "PED-%s-%05d"  # Formato: PED-YYYYMMDD-00001
+  carrinho:
+    tempo-expiracao-dias: 30
+    auto-salvar: true
+  estoque:
+    validacao-habilitada: true
+    reserva-automatica: true
+  pagamento:
+    timeout-segundos: 30
+    retry-max-attempts: 3
+
+# Endpoints REST do Storefront
+# Base URL: http://localhost:8080/api/v1/
+#
+# Produtos:
+#   GET    /produtos                      - Lista produtos (paginado)
+#   GET    /produtos/{id}                 - Busca por ID
+#   GET    /produtos/categoria/{cat}      - Por categoria
+#   GET    /produtos/buscar?termo=X       - Busca por nome
+#
+# Clientes:
+#   POST   /clientes                      - Cadastrar
+#   GET    /clientes/{id}                 - Buscar por ID
+#   GET    /clientes/email/{email}        - Buscar por email
+#   GET    /clientes/cpf/{cpf}            - Buscar por CPF
+#
+# Carrinho:
+#   GET    /clientes/{id}/carrinho                              - Obter carrinho
+#   POST   /clientes/{id}/carrinho/itens                        - Adicionar produto
+#   DELETE /clientes/{id}/carrinho/itens/{produtoId}            - Remover produto
+#   PUT    /clientes/{id}/carrinho/itens/{produtoId}/quantidade - Atualizar qtd
+#   POST   /clientes/{id}/carrinho/finalizar                    - Checkout
+#
+# Pedidos:
+#   GET    /pedidos/{id}              - Buscar por ID
+#   GET    /pedidos/numero/{numero}   - Buscar por número
+#   GET    /pedidos/cliente/{id}      - Listar por cliente
