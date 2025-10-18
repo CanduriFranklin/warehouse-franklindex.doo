@@ -70,7 +70,6 @@ public class BasketsDisposedEventListener {
      * @param event The disposal event
      */
     private void processDisposalEvent(BasketsDisposedEvent event) {
-        // TODO: Implement actual business logic
         
         // Examples:
         // 1. Record loss in accounting

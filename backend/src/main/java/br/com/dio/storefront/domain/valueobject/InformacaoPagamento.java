@@ -1,10 +1,11 @@
 package br.com.dio.storefront.domain.valueobject;
 
+import java.time.YearMonth;
+import java.util.Objects;
+
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import java.time.YearMonth;
-import java.util.Objects;
 
 /**
  * Value Object para representar informações de pagamento.
@@ -19,7 +20,7 @@ public class InformacaoPagamento {
     private String numeroCartao; // Apenas últimos 4 dígitos
     private String nomeNoCartao;
     private String mesAnoValidade; // Formato: MM/AAAA
-    private String codigoSeguranca; // Não será persistido (apenas validação)
+    // código de segurança apenas para validação, não armazenado como campo
 
     /**
      * Construtor protegido para JPA.

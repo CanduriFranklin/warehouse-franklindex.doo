@@ -1,6 +1,23 @@
 package br.com.dio.storefront.infrastructure.web.controller;
 
-import br.com.dio.storefront.application.port.in.*;
+import java.net.URI;
+import java.util.UUID;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.dio.storefront.application.port.in.AdicionarProdutoAoCarrinhoUseCase;
+import br.com.dio.storefront.application.port.in.AtualizarQuantidadeCarrinhoUseCase;
+import br.com.dio.storefront.application.port.in.FinalizarCarrinhoUseCase;
+import br.com.dio.storefront.application.port.in.ObterCarrinhoUseCase;
+import br.com.dio.storefront.application.port.in.RemoverProdutoDoCarrinhoUseCase;
 import br.com.dio.storefront.domain.model.CarrinhoCompras;
 import br.com.dio.storefront.infrastructure.web.dto.request.AdicionarProdutoAoCarrinhoRequest;
 import br.com.dio.storefront.infrastructure.web.dto.request.AtualizarQuantidadeRequest;
@@ -10,11 +27,6 @@ import br.com.dio.storefront.infrastructure.web.mapper.StorefrontMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.util.UUID;
 
 /**
  * Controller REST para operações de Carrinho de Compras.
@@ -70,7 +82,7 @@ public class CarrinhoController {
                         request.quantidade()
                 );
         
-        UUID carrinhoId = adicionarProdutoUseCase.adicionar(command);
+        adicionarProdutoUseCase.adicionar(command);
         CarrinhoCompras carrinho = obterCarrinhoUseCase.obter(clienteId);
         
         return ResponseEntity.ok(mapper.toResponse(carrinho));

@@ -79,13 +79,19 @@ public class SecurityConfig {
                                 "/swagger-ui.html"
                         ).permitAll()
                         
+                        // Public product browsing - GET only
+                        .requestMatchers(HttpMethod.GET, "/api/v1/produtos/**").permitAll()
+                        
                         // Delivery endpoints - requires ADMIN or WAREHOUSE_MANAGER role
                         .requestMatchers(HttpMethod.POST, "/api/v1/deliveries").hasAnyRole("ADMIN", "WAREHOUSE_MANAGER")
                         
                         // Basket sale endpoints - requires ADMIN, WAREHOUSE_MANAGER, or SALES role
                         .requestMatchers(HttpMethod.POST, "/api/v1/baskets/sell").hasAnyRole("ADMIN", "WAREHOUSE_MANAGER", "SALES")
                         
-                        // Query endpoints - requires authentication
+                        // Cart endpoints - requires authentication
+                        .requestMatchers("/api/v1/carrinhos/**").authenticated()
+                        
+                        // Other query endpoints - requires authentication
                         .requestMatchers(HttpMethod.GET, "/api/v1/**").authenticated()
                         
                         // Actuator endpoints - requires ADMIN role

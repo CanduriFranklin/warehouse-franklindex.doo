@@ -1,15 +1,32 @@
 package br.com.dio.storefront.domain.model;
 
-import br.com.dio.storefront.domain.valueobject.Dinheiro;
-import br.com.dio.storefront.domain.valueobject.Endereco;
-import br.com.dio.storefront.domain.valueobject.InformacaoPagamento;
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import br.com.dio.storefront.domain.valueobject.Dinheiro;
+import br.com.dio.storefront.domain.valueobject.Endereco;
+import br.com.dio.storefront.domain.valueobject.InformacaoPagamento;
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 /**
  * Entidade que representa um Pedido.
@@ -37,7 +54,7 @@ public class Pedido {
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "rua", column = @Column(name = "endereco_entrega_rua")),
+        @AttributeOverride(name = "rua", column = @Column(name = "endereco_entrega_logradouro")),
         @AttributeOverride(name = "numero", column = @Column(name = "endereco_entrega_numero")),
         @AttributeOverride(name = "complemento", column = @Column(name = "endereco_entrega_complemento")),
         @AttributeOverride(name = "bairro", column = @Column(name = "endereco_entrega_bairro")),
@@ -47,13 +64,7 @@ public class Pedido {
     })
     private Endereco enderecoEntrega;
 
-    @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "tipo", column = @Column(name = "pagamento_tipo")),
-        @AttributeOverride(name = "numeroCartao", column = @Column(name = "pagamento_numero_cartao")),
-        @AttributeOverride(name = "nomeNoCartao", column = @Column(name = "pagamento_nome_cartao")),
-        @AttributeOverride(name = "mesAnoValidade", column = @Column(name = "pagamento_validade"))
-    })
+    @Transient
     private InformacaoPagamento informacaoPagamento;
 
     @Embedded

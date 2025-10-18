@@ -88,7 +88,6 @@ public class RabbitMQEventPublisher implements EventPublisher {
             // 3. Send to fallback system
             
             // For now, we log and continue (at-most-once delivery)
-            // TODO: Implement compensating transaction or outbox pattern
         }
     }
     
@@ -100,9 +99,9 @@ public class RabbitMQEventPublisher implements EventPublisher {
      */
     private String determineRoutingKey(Object event) {
         return switch (event) {
-            case DeliveryReceivedEvent ignored -> RabbitMQConfig.DELIVERY_ROUTING_KEY;
-            case BasketsSoldEvent ignored -> RabbitMQConfig.BASKETS_SOLD_ROUTING_KEY;
-            case BasketsDisposedEvent ignored -> RabbitMQConfig.BASKETS_DISPOSED_ROUTING_KEY;
+            case DeliveryReceivedEvent _ -> RabbitMQConfig.DELIVERY_ROUTING_KEY;
+            case BasketsSoldEvent _ -> RabbitMQConfig.BASKETS_SOLD_ROUTING_KEY;
+            case BasketsDisposedEvent _ -> RabbitMQConfig.BASKETS_DISPOSED_ROUTING_KEY;
             default -> {
                 log.warn("⚠️ Unknown event type: {}", event.getClass().getName());
                 yield null;

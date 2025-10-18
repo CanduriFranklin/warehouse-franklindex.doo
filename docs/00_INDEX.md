@@ -22,6 +22,17 @@ Este documento serve como **índice central** para toda a documentação do proj
 
 ## 🎯 Documentação Essencial (Início Rápido)
 
+### 📘 **Novos Documentos de Entrega (16/10/2025)**
+
+| Arquivo | Descrição | Status |
+|---------|-----------|--------|
+| **[GUIA_RAPIDO.md](GUIA_RAPIDO.md)** | 🌟 **URLs, credenciais, comandos úteis** - Acesso rápido a tudo | 🟢 |
+| **[PROXIMOS_PASSOS.md](PROXIMOS_PASSOS.md)** | 🚀 **Roadmap completo** - Frontend UI, Backend, DevOps | 🟢 |
+| **[RESUMO_EXECUTIVO.md](RESUMO_EXECUTIVO.md)** | 📊 **Visão executiva** - O que foi entregue, próximas fases | 🟢 |
+| **[CHECKLIST.md](CHECKLIST.md)** | ✅ **Checklist detalhado** - Status de todas as tarefas | 🟢 |
+
+### 📖 **Documentação Técnica**
+
 | Arquivo | Descrição | Status |
 |---------|-----------|--------|
 | [README.md](../README.md) | **Documento principal do projeto** - Visão geral, badges, stack tecnológica | 🟢 |

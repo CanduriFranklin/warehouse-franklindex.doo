@@ -1,48 +1,66 @@
-# Criando um Microsserviço de Controle de Comércio Eletrônico 🛒
+# 🛒 Warehouse E-commerce Platform
 
 [![Java](https://img.shields.io/badge/Java-25_LTS-orange.svg)](https://adoptium.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2025.0.0-blue.svg)](https://spring.io/projects/spring-cloud)
+[![React](https://img.shields.io/badge/React-18-61DAFB.svg?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6.svg?logo=typescript)](https://www.typescriptlang.org/)
 [![Gradle](https://img.shields.io/badge/Gradle-9.1.0-blue.svg)](https://gradle.org/)
 [![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED.svg)](https://www.docker.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg)](https://www.postgresql.org/)
-[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3.12-FF6600.svg)](https://www.rabbitmq.com/)
-[![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04_LTS-E95420.svg?logo=ubuntu&logoColor=white)](https://ubuntu.com/)
-[![WSL2](https://img.shields.io/badge/WSL-2-0078D4.svg?logo=windows&logoColor=white)](https://docs.microsoft.com/windows/wsl/)
+[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3.13-FF6600.svg)](https://www.rabbitmq.com/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Warehouse Status](https://img.shields.io/badge/Warehouse-Production_Ready-success.svg)](docs/PROJECT_VALIDATION_OCTOBER_15_2025.md)
-[![Storefront Status](https://img.shields.io/badge/Storefront-Planned-yellow.svg)](docs/STOREFRONT_MICROSERVICE_PLAN.md)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Franklin_Canduri-0077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/franklin-david-canduri-presilla-b75956266/)
+[![Status](https://img.shields.io/badge/Status-MVP_Ready-success.svg)](docs/RESUMO_EXECUTIVO.md)
 
 ---
 
 ## 📋 Sobre o Projeto
 
-> **⚠️ IMPORTANTE**: Este é um projeto de **DOIS MICROSSERVIÇOS** que se comunicam de forma **síncrona (HTTP/REST)** e **assíncrona (RabbitMQ)**.
+**Plataforma Completa de E-commerce** com arquitetura de microsserviços, construída com tecnologias modernas e boas práticas de desenvolvimento.
 
-**Plataforma de Comércio Eletrônico de Cestas Básicas** composta por dois microsserviços principais:
+### ✅ **O Que Está Pronto**
 
-### 🏭 **1. Warehouse Microservice** ✅ (COMPLETO - Production Ready)
-Responsável pelo gerenciamento de armazém e controle de estoque:
-- Recebimento de entregas de fornecedores
-- Controle de inventário em tempo real
-- Venda de cestas básicas
-- Descarte de produtos vencidos
-- Publicação de eventos de estoque via RabbitMQ
-- API REST para consultas e operações
+#### 🏭 Backend API (Spring Boot)
+- ✅ 14 endpoints REST operacionais
+- ✅ Autenticação JWT (HS512)
+- ✅ PostgreSQL com Flyway migrations
+- ✅ RabbitMQ para mensageria
+- ✅ Docker Compose orquestração
+- ✅ Swagger UI documentação
+- ✅ Clean Architecture
+- ✅ Dados seed para testes
 
-**Status**: 🟢 **IMPLEMENTADO E VALIDADO** (15/10/2025)
+#### 🎨 Frontend (React)
+- ✅ React 18 + TypeScript 5.6
+- ✅ Vite 7.0 build tool
+- ✅ TailwindCSS 4.0
+- ✅ Serviços de API completos
+- ✅ Estrutura de páginas
+- 🚧 UI precisa ser implementada
 
-### 🏪 **2. Storefront Microservice** 📋 (PLANEJADO)
-Responsável pela interface de vendas e experiência do cliente:
-- Catálogo de produtos (vitrine)
-- Carrinho de compras
-- Checkout e criação de pedidos
-- Consulta de disponibilidade no Warehouse (HTTP síncrono)
-- Consumo de eventos de estoque (RabbitMQ assíncrono)
-- Gestão de clientes
+### 🚀 **Quick Start**
 
-**Status**: 🟡 **PLANEJADO** - [Ver Plano Completo](docs/STOREFRONT_MICROSERVICE_PLAN.md)
+```bash
+# Clonar repositório
+git clone https://github.com/Franklinho/warehouse-franklindex.doo.git
+cd warehouse-franklindex.doo
+
+# Iniciar todos os serviços
+docker compose up -d
+
+# Acessar aplicação
+# Frontend: http://localhost
+# Backend API: http://localhost:8080
+# Swagger UI: http://localhost:8080/swagger-ui/index.html
+# pgAdmin: http://localhost:5050
+# RabbitMQ: http://localhost:15672
+```
+
+**Credenciais de Teste:**
+- Admin: `admin` / `Admin@2025!Secure`
+- Manager: `manager` / `Manager@2025!Secure`
+- Sales: `sales` / `Sales@2025!Secure`
+
+� **[Ver Guia Completo de Acesso](docs/GUIA_RAPIDO.md)**
 
 ---
 
@@ -350,15 +368,25 @@ README.md
 
 ### 📚 Documentação Completa
 
-**📖 Índice Geral**: [docs/00_INDEX.md](docs/00_INDEX.md) - Navegação completa de toda a documentação
+#### 🎯 **Documentação de Entrega (16/10/2025)**
 
-**Documentação Docker**:
-- [docs/02_DOCKER_SETUP.md](docs/02_DOCKER_SETUP.md) - Guia completo de configuração Docker
-- [docs/04_DOCKER_OPTIMIZATION.md](docs/04_DOCKER_OPTIMIZATION.md) - Detalhes técnicos das otimizações
-- [docs/06_DOCKER_CLEANUP.md](docs/06_DOCKER_CLEANUP.md) - Guia de limpeza de imagens Docker/Kubernetes
+**Para começar agora:**
+- 📘 **[GUIA_RAPIDO.md](docs/GUIA_RAPIDO.md)** - URLs, credenciais, comandos úteis
+- 📗 **[PROXIMOS_PASSOS.md](docs/PROXIMOS_PASSOS.md)** - Roadmap completo de implementação
+- 📙 **[RESUMO_EXECUTIVO.md](docs/RESUMO_EXECUTIVO.md)** - Visão geral do projeto
+- ✅ **[CHECKLIST.md](docs/CHECKLIST.md)** - Status detalhado de todas as tarefas
 
-**Documentação Frontend**:
-- [frontend/FRONTEND_README.md](frontend/FRONTEND_README.md) - Documentação completa do frontend (React + Docker)
+#### 📖 **Documentação Técnica**
+
+**Índice Geral**: [docs/00_INDEX.md](docs/00_INDEX.md) - Navegação completa
+
+**Docker**:
+- [docs/02_DOCKER_SETUP.md](docs/02_DOCKER_SETUP.md) - Guia completo de configuração
+- [docs/04_DOCKER_OPTIMIZATION.md](docs/04_DOCKER_OPTIMIZATION.md) - Detalhes técnicos
+- [docs/06_DOCKER_CLEANUP.md](docs/06_DOCKER_CLEANUP.md) - Limpeza de imagens
+
+**Frontend**:
+- [frontend/FRONTEND_README.md](frontend/FRONTEND_README.md) - Documentação completa React + Docker
 
 ---
 

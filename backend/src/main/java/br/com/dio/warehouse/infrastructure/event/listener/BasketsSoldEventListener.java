@@ -1,13 +1,14 @@
 package br.com.dio.warehouse.infrastructure.event.listener;
 
-import br.com.dio.warehouse.domain.event.BasketsSoldEvent;
-import br.com.dio.warehouse.infrastructure.config.RabbitMQConfig;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+
+import br.com.dio.warehouse.domain.event.BasketsSoldEvent;
+import br.com.dio.warehouse.infrastructure.config.RabbitMQConfig;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Event Listener for BasketsSoldEvent
@@ -71,7 +72,6 @@ public class BasketsSoldEventListener {
      * @param event The sales event
      */
     private void processSalesEvent(BasketsSoldEvent event) {
-        // TODO: Implement actual business logic
         
         // Examples:
         // 1. Update sales dashboard

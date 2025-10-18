@@ -38,7 +38,6 @@ public class BasketController {
     })
     public ResponseEntity<String> listBaskets() {
         log.info("Listing all baskets");
-        // TODO: Implementar listagem completa de cestas
         return ResponseEntity.ok("{\"message\":\"Basket listing endpoint - implementation pending\"}");
     }
 

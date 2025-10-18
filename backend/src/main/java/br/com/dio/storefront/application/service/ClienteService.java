@@ -1,18 +1,18 @@
 package br.com.dio.storefront.application.service;
 
+import java.util.Objects;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.dio.storefront.application.port.in.BuscarClienteUseCase;
 import br.com.dio.storefront.application.port.in.CadastrarClienteUseCase;
 import br.com.dio.storefront.application.port.out.PublicarEventoPort;
 import br.com.dio.storefront.domain.event.ClienteCadastradoEvent;
 import br.com.dio.storefront.domain.exception.ClienteNaoEncontradoException;
-import br.com.dio.storefront.domain.exception.StorefrontDomainException;
 import br.com.dio.storefront.domain.model.Cliente;
 import br.com.dio.storefront.domain.repository.ClienteRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Service de Clientes.

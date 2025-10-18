@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,11 @@ import br.com.dio.warehouse.adapter.in.web.dto.auth.JwtAuthenticationResponse;
 import br.com.dio.warehouse.adapter.in.web.dto.auth.LoginRequest;
 import br.com.dio.warehouse.infrastructure.security.JwtTokenProvider;
 
-import org.junit.jupiter.api.Disabled;
-
 /**
  * Integration tests for AuthenticationController
  * Tests authentication endpoints with MockMvc
  * 
  * NOTE: Temporarily disabled due to Java 25 compatibility issues with Spring Boot component scanning
- * TODO: Re-enable when Spring Boot fully supports Java 25 or downgrade to Java 21 LTS
  * 
  * @author Franklin Canduri
  * @version 1.0.0

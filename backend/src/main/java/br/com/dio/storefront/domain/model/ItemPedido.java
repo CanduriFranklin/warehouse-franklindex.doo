@@ -31,8 +31,7 @@ public class ItemPedido {
     @AttributeOverride(name = "valor", column = @Column(name = "preco_unitario", nullable = false))
     private Dinheiro precoUnitario; // Snapshot do preço no momento do pedido
 
-    @Embedded
-    @AttributeOverride(name = "valor", column = @Column(name = "subtotal", nullable = false))
+    @Transient
     private Dinheiro subtotal;
 
     /**

@@ -1,12 +1,13 @@
 package br.com.dio.storefront.infrastructure.service;
 
-import br.com.dio.storefront.application.port.out.ValidarEstoquePort;
-import br.com.dio.storefront.domain.model.Produto;
-import org.springframework.stereotype.Component;
-
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.springframework.stereotype.Component;
+
+import br.com.dio.storefront.application.port.out.ValidarEstoquePort;
+import br.com.dio.storefront.domain.model.Produto;
 
 /**
  * Implementação simplificada de ValidarEstoquePort.
@@ -35,7 +36,7 @@ public class EstoqueValidator implements ValidarEstoquePort {
     
     @Override
     public void liberarEstoque(UUID produtoId, int quantidade) {
-        estoqueReservado.computeIfPresent(produtoId, (id, reservado) -> {
+        estoqueReservado.computeIfPresent(produtoId, (_, reservado) -> {
             int novoValor = reservado - quantidade;
             return novoValor <= 0 ? null : novoValor;
         });

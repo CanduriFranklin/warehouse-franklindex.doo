@@ -32,7 +32,7 @@ public class Cliente {
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "rua", column = @Column(name = "endereco_rua")),
+        @AttributeOverride(name = "rua", column = @Column(name = "endereco_logradouro")),
         @AttributeOverride(name = "numero", column = @Column(name = "endereco_numero")),
         @AttributeOverride(name = "complemento", column = @Column(name = "endereco_complemento")),
         @AttributeOverride(name = "bairro", column = @Column(name = "endereco_bairro")),

@@ -6,16 +6,18 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Configuração do RabbitMQ para Storefront.
  * Define exchanges, queues e bindings para comunicação assíncrona.
  * 
+ * NOTA: Desabilitada para evitar conflito com RabbitMQConfig do warehouse.
+ * O warehouse gerencia toda a configuração RabbitMQ.
+ * 
  * @author Franklin Canduri
  * @since 15/10/2025
  */
-@Configuration
+// @Configuration - DESABILITADA: usando configuração do warehouse
 public class RabbitMQConfig {
     
     @Value("${rabbitmq.exchange.storefront:storefront.events}")

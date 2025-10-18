@@ -4,8 +4,8 @@ import { FiShoppingCart, FiUser, FiPackage } from 'react-icons/fi';
 import { useCarrinho } from '../../context/CarrinhoContext';
 
 export const Header: React.FC = () => {
-  const { carrinho } = useCarrinho();
-  const quantidadeItens = carrinho?.quantidadeTotal || 0;
+  const { itens } = useCarrinho();
+  const quantidadeItens = itens.reduce((total, item) => total + item.quantidade, 0);
   
   return (
     <header className="bg-white shadow-md sticky top-0 z-40">

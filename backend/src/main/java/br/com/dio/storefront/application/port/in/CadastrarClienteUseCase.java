@@ -1,8 +1,8 @@
 package br.com.dio.storefront.application.port.in;
 
-import br.com.dio.storefront.domain.model.Cliente;
-import br.com.dio.storefront.domain.valueobject.Endereco;
 import java.util.UUID;
+
+import br.com.dio.storefront.domain.valueobject.Endereco;
 
 /**
  * Use Case para cadastrar novo cliente.

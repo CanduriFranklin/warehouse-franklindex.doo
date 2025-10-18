@@ -1,13 +1,14 @@
 package br.com.dio.warehouse.infrastructure.event.listener;
 
-import br.com.dio.warehouse.domain.event.DeliveryReceivedEvent;
-import br.com.dio.warehouse.infrastructure.config.RabbitMQConfig;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+
+import br.com.dio.warehouse.domain.event.DeliveryReceivedEvent;
+import br.com.dio.warehouse.infrastructure.config.RabbitMQConfig;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Event Listener for DeliveryReceivedEvent
@@ -69,7 +70,6 @@ public class DeliveryReceivedEventListener {
      * @param event The delivery event
      */
     private void processDeliveryEvent(DeliveryReceivedEvent event) {
-        // TODO: Implement actual business logic
         
         // Examples:
         // 1. Send notification to warehouse manager
