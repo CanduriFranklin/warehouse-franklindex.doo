@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.dio.warehouse.adapter.in.web.dto.auth.JwtAuthenticationResponse;
 import br.com.dio.warehouse.adapter.in.web.dto.auth.LoginRequest;
+import br.com.dio.warehouse.adapter.in.web.dto.auth.RegisterRequest;
+import br.com.dio.warehouse.application.service.UsuarioRegistrationService;
+import br.com.dio.warehouse.domain.model.Usuario;
+import br.com.dio.warehouse.infrastructure.security.DatabaseUserDetailsService;
 import br.com.dio.warehouse.infrastructure.security.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -46,6 +50,8 @@ public class AuthenticationController {
     
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
+    private final UsuarioRegistrationService registrationService;
+    private final DatabaseUserDetailsService userDetailsService;
     
     /**
      * Authenticate user and generate JWT token
@@ -115,6 +121,84 @@ public class AuthenticationController {
         } catch (AuthenticationException ex) {
             log.error("Authentication failed for user: {}", loginRequest.username());
             throw ex;
+        }
+    }
+    
+    /**
+     * Register new user
+     * 
+     * @param registerRequest Registration data
+     * @return JWT authentication response with auto-login
+     */
+    @Operation(
+            summary = "User Registration",
+            description = "Register a new user account and perform automatic login"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "User registered successfully",
+                    content = @Content(schema = @Schema(implementation = JwtAuthenticationResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Validation error (invalid input, username/email duplicate, etc)"
+            )
+    })
+    @PostMapping("/register")
+    public ResponseEntity<JwtAuthenticationResponse> register(
+            @Valid @RequestBody RegisterRequest registerRequest
+    ) {
+        try {
+            log.info("New user registration request: {}", registerRequest.username());
+            
+            // Register new user
+            Usuario novoUsuario = registrationService.registrarNovoUsuario(registerRequest);
+            
+            // Perform automatic login
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            novoUsuario.getUsername(),
+                            registerRequest.password()
+                    )
+            );
+            
+            // Set authentication in security context
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            
+            // Update last access
+            userDetailsService.updateUltimoAcesso(novoUsuario.getUsername());
+            
+            // Generate JWT token
+            String token = tokenProvider.generateToken(authentication);
+            
+            // Extract roles
+            String roles = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.joining(","));
+            
+            // Calculate expiration
+            Instant expiresAt = Instant.now()
+                    .plusMillis(tokenProvider.getExpirationMs());
+            
+            // Build response
+            JwtAuthenticationResponse response = JwtAuthenticationResponse.of(
+                    token,
+                    expiresAt,
+                    novoUsuario.getUsername(),
+                    roles
+            );
+            
+            log.info("User registered and authenticated successfully: {}", registerRequest.username());
+            
+            return ResponseEntity.status(201).body(response);
+            
+        } catch (IllegalArgumentException ex) {
+            log.warn("Registration validation failed: {}", ex.getMessage());
+            return ResponseEntity.badRequest().build();
+        } catch (Exception ex) {
+            log.error("Registration failed: {}", ex.getMessage());
+            return ResponseEntity.status(400).build();
         }
     }
     
