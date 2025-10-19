@@ -65,8 +65,8 @@ export default function AuthPage() {
       
       // Após registro bem-sucedido, navegar para dashboard
       navigate('/dashboard');
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Erro ao criar conta. Tente novamente.';
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro ao criar conta. Tente novamente.';
       setError(errorMessage);
     } finally {
       setLoading(false);
