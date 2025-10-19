@@ -36,15 +36,6 @@ logging:
 rabbitmq:
   enabled: ${RABBITMQ_ENABLED:true}
 
-# Development users (passwords from environment variables)
-dev:
-  users:
-    admin:
-      username: ${DEV_ADMIN_USERNAME:admin}
-      password: ${DEV_ADMIN_PASSWORD}  # MUST be set in environment or .env file
-    manager:
-      username: ${DEV_MANAGER_USERNAME:manager}
-      password: ${DEV_MANAGER_PASSWORD}  # MUST be set in environment or .env file
-    sales:
-      username: ${DEV_SALES_USERNAME:sales}
-      password: ${DEV_SALES_PASSWORD}  # MUST be set in environment or .env file
+# NOTE: User credentials are now stored in database (usuarios table)
+# Migration V6 seeds dev users: admin, manager, sales
+# Use DatabaseUserDetailsService for authentication (loaded from database)

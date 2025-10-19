@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,14 +19,17 @@ import lombok.extern.slf4j.Slf4j;
  * SECURITY WARNING: This implementation is for DEVELOPMENT/TESTING ONLY
  * - Credentials are loaded from environment variables
  * - NEVER use hardcoded credentials in production
- * - Replace with database-backed implementation in production
+ * - DEPRECATED: Replaced with DatabaseUserDetailsService for database-backed authentication
  * 
  * @author Franklin Canduri
  * @version 1.0.0
  * @since 2025
+ * 
+ * @deprecated Use DatabaseUserDetailsService instead. This service is kept for reference only.
  */
 @Slf4j
-@Service
+// @Service - DISABLED: Using DatabaseUserDetailsService instead
+@Deprecated(since = "2.0.0", forRemoval = true)
 public class InMemoryUserDetailsService implements UserDetailsService {
     
     private final Map<String, UserDetails> users;
