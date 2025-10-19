@@ -7,7 +7,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, register } = useAuth();
 
   // Login Form State
   const [loginData, setLoginData] = useState({
@@ -47,22 +47,27 @@ export default function AuthPage() {
       return;
     }
 
-    if (registerData.password.length < 6) {
-      setError('A senha deve ter pelo menos 6 caracteres');
+    if (registerData.password.length < 8) {
+      setError('A senha deve ter pelo menos 8 caracteres');
       return;
     }
 
     setLoading(true);
     
     try {
-      // Simular registro - você implementaria a chamada à API aqui
-      console.log('Registrando:', registerData);
+      // Chamar API de registro
+      await register(
+        registerData.username,
+        registerData.email,
+        registerData.password,
+        registerData.confirmPassword
+      );
       
-      // Após registro bem-sucedido, fazer login automático
-      await login(registerData.username, registerData.password);
+      // Após registro bem-sucedido, navegar para dashboard
       navigate('/dashboard');
     } catch (err) {
-      setError('Erro ao criar conta. Tente novamente.');
+      const errorMessage = err instanceof Error ? err.message : 'Erro ao criar conta. Tente novamente.';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

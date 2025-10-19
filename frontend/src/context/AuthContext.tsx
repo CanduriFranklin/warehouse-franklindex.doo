@@ -11,6 +11,7 @@ interface AuthContextType {
   token: string | null;
   loading: boolean;
   login: (username: string, password: string) => Promise<void>;
+  register: (username: string, email: string, password: string, passwordConfirm: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -55,6 +56,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const register = async (username: string, email: string, password: string, passwordConfirm: string) => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/auth/register', {
+        username,
+        email,
+        password,
+        passwordConfirm
+      });
+
+      const { token: authToken, username: userName, roles } = response.data;
+      
+      setToken(authToken);
+      setUser({ username: userName, roles });
+      
+      // Salvar no localStorage
+      localStorage.setItem('auth_token', authToken);
+      localStorage.setItem('user_data', JSON.stringify({ username: userName, roles }));
+    } catch (error) {
+      console.error('Erro no registro:', error);
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message || 'Erro ao registrar. Verifique os dados informados.');
+      }
+      throw new Error('Erro ao registrar usuário');
+    }
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -68,6 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       token,
       loading,
       login,
+      register,
       logout,
       isAuthenticated: !!token
     }}>
