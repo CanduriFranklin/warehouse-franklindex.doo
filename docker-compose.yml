@@ -141,8 +141,8 @@ services:
         reservations:
           cpus: '1.0'
           memory: 512M
-    profiles:
-      - dev
+    # Profile removed: warehouse service now starts automatically with 'docker-compose up'
+    # This ensures a user-friendly development experience without profile knowledge
 
   # Frontend Application (React + Vite)
   # Run in development mode with hot reload
@@ -171,8 +171,8 @@ services:
         reservations:
           cpus: '0.5'
           memory: 256M
-    profiles:
-      - dev  # Only start with: docker compose --profile dev up
+    # Profile removed: frontend-dev now starts automatically for development
+    # Users get complete development environment with single 'docker-compose up' command
   
   # Frontend Production Build (Nginx)
   

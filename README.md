@@ -48,7 +48,7 @@ cd warehouse-franklindex.doo
 docker compose up -d
 
 # Acessar aplicação
-# Frontend: http://localhost
+# Frontend: http://localhots:5173
 # Backend API: http://localhost:8080
 # Swagger UI: http://localhost:8080/swagger-ui/index.html
 # pgAdmin: http://localhost:5050
@@ -202,7 +202,7 @@ Construir **dois microsserviços principais** que se comunicam através de:
 | Microsserviço | Status | Progresso | Documentação |
 |---------------|--------|-----------|--------------|
 | **Warehouse** | 🟢 Production Ready | 100% | [Validação](docs/PROJECT_VALIDATION_OCTOBER_15_2025.md) |
-| **Storefront** | 🟡 Planejado | 0% | [Plano](docs/STOREFRONT_MICROSERVICE_PLAN.md) |
+| **Storefront** | � Production Ready | 100% | [Plano](docs/STOREFRONT_MICROSERVICE_PLAN.md) |
 
 ### ✅ Warehouse - O Que Foi Implementado
 
@@ -366,29 +366,21 @@ README.md
 | **Startup Time** | 15-20s | 5-8s | **60% mais rápido** |
 | **Segurança** | Básica | Headers + Gzip | **Reforçada** |
 
-### 📚 Documentação Completa
 
-#### 🎯 **Documentação de Entrega (16/10/2025)**
+## 📚 Documentação Centralizada
 
-**Para começar agora:**
-- 📘 **[GUIA_RAPIDO.md](docs/GUIA_RAPIDO.md)** - URLs, credenciais, comandos úteis
-- 📗 **[PROXIMOS_PASSOS.md](docs/PROXIMOS_PASSOS.md)** - Roadmap completo de implementação
-- 📙 **[RESUMO_EXECUTIVO.md](docs/RESUMO_EXECUTIVO.md)** - Visão geral do projeto
-- ✅ **[CHECKLIST.md](docs/CHECKLIST.md)** - Status detalhado de todas as tarefas
+Toda a documentação do projeto está organizada em subdiretórios dentro de `docs/`:
 
-#### 📖 **Documentação Técnica**
+- [docs/00_INDEX.md](docs/00_INDEX.md) — **Índice central e navegação completa**
+- [docs/user_guides/README.md](docs/user_guides/README.md) — **Guias práticos para desenvolvedores e usuários**
+- [docs/legacy/README.md](docs/legacy/README.md) — **Documentos técnicos, análises e históricos**
 
-**Índice Geral**: [docs/00_INDEX.md](docs/00_INDEX.md) - Navegação completa
+Principais guias de entrada:
+- [Guia Rápido](docs/GUIA_RAPIDO.md)
+- [Guia de Desenvolvimento](docs/user_guides/80_DEVELOPMENT_GUIDE.md)
+- [Guia de Teste Frontend](docs/user_guides/81_FRONTEND_TEST_GUIDE.md)
 
-**Docker**:
-- [docs/02_DOCKER_SETUP.md](docs/02_DOCKER_SETUP.md) - Guia completo de configuração
-- [docs/04_DOCKER_OPTIMIZATION.md](docs/04_DOCKER_OPTIMIZATION.md) - Detalhes técnicos
-- [docs/06_DOCKER_CLEANUP.md](docs/06_DOCKER_CLEANUP.md) - Limpeza de imagens
-
-**Frontend**:
-- [frontend/FRONTEND_README.md](frontend/FRONTEND_README.md) - Documentação completa React + Docker
-
----
+Para documentação detalhada, consulte sempre o [Índice Geral](docs/00_INDEX.md).
 
 ## � Ambiente de Desenvolvimento
 

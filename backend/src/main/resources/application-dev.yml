@@ -6,6 +6,8 @@ spring:
   # Development Database (use environment variables for credentials)
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:warehouse_db}
+    username: ${DB_USERNAME:warehouse_user}
+    password: ${DB_PASSWORD:warehouse_secure_2025}
   
   # Show SQL for debugging
   jpa:
@@ -19,6 +21,11 @@ spring:
       enabled: true
     livereload:
       enabled: true
+  
+  # Disable Docker Compose support for local development
+  docker:
+    compose:
+      enabled: false
 
 # Development logging (more verbose)
 logging:

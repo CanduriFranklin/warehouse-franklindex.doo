@@ -32,7 +32,8 @@ export default function AuthPage() {
       await login(loginData.username, loginData.password);
       navigate('/dashboard');
     } catch (err) {
-      setError('Credenciais inválidas. Tente novamente.');
+      const errorMessage = err instanceof Error ? err.message : 'Credenciais inválidas. Tente novamente.';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

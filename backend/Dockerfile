@@ -65,6 +65,6 @@ CMD ["java", \
      "-XX:+UseG1GC", \
      "-XX:+OptimizeStringConcat", \
      "-Djava.security.egd=file:/dev/./urandom", \
-     "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod}", \
+     "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-dev}", \
      "-cp", "/app:/app/lib/*", \
      "br.com.dio.warehouse.WarehouseApplication"]

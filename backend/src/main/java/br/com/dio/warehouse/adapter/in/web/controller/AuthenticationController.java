@@ -21,7 +21,6 @@ import br.com.dio.warehouse.adapter.in.web.dto.auth.LoginRequest;
 import br.com.dio.warehouse.adapter.in.web.dto.auth.RegisterRequest;
 import br.com.dio.warehouse.application.service.UsuarioRegistrationService;
 import br.com.dio.warehouse.domain.model.Usuario;
-import br.com.dio.warehouse.infrastructure.security.DatabaseUserDetailsService;
 import br.com.dio.warehouse.infrastructure.security.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -51,7 +50,6 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
     private final UsuarioRegistrationService registrationService;
-    private final DatabaseUserDetailsService userDetailsService;
     
     /**
      * Authenticate user and generate JWT token
@@ -165,9 +163,6 @@ public class AuthenticationController {
             
             // Set authentication in security context
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            
-            // Update last access
-            userDetailsService.updateUltimoAcesso(novoUsuario.getUsername());
             
             // Generate JWT token
             String token = tokenProvider.generateToken(authentication);

@@ -21,6 +21,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.com.dio.warehouse.infrastructure.security.JwtAuthenticationFilter;
+import br.com.dio.warehouse.infrastructure.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -44,7 +45,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
     
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtTokenProvider jwtTokenProvider;
     
     /**
      * Configure security filter chain
@@ -72,6 +73,7 @@ public class SecurityConfig {
                         // Public endpoints - no authentication required
                         .requestMatchers(
                                 "/api/v1/auth/**",
+                                "/api/v1/simple-auth/**",
                                 "/actuator/health",
                                 "/actuator/info",
                                 "/v3/api-docs/**",
@@ -102,7 +104,7 @@ public class SecurityConfig {
                 )
                 
                 // Add JWT authentication filter before UsernamePasswordAuthenticationFilter
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
     }
@@ -139,26 +141,25 @@ public class SecurityConfig {
     
     /**
      * Password encoder bean
-     * Uses BCrypt with strength 12
+     * Uses BCrypt with strength 10 to match existing database hashes
      * 
      * @return PasswordEncoder
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
+        return new BCryptPasswordEncoder(10);
     }
     
     /**
-     * Authentication manager bean
+     * Authentication manager bean - Modern Spring Security 6 approach
+     * This will automatically use the DatabaseUserDetailsService and PasswordEncoder
      * 
-     * @param authConfig Authentication configuration
+     * @param config AuthenticationConfiguration
      * @return AuthenticationManager
      * @throws Exception if configuration fails
      */
     @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authConfig
-    ) throws Exception {
-        return authConfig.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 }
